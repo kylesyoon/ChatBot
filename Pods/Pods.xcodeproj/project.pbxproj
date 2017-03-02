@@ -1,0 +1,654 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		020E969BCAC001179C5BFA0201013EDD /* SLKTextInputbar.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = E3EC968EE4A0FD02C03F3CEBE4BAD31D /* SLKTextInputbar.h */; };
+		06CB3AA211BDD9F5DD04A6A4BB5A2A25 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A72C9AE2B13A6EB3B1BDA623AA3CC2 /* SLKTextViewController.m */; };
+		0DFCD937F6BCB4A6335B4CD860223129 /* SLKTextView.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = BE4DCC363061197E421619A8232F78BF /* SLKTextView.h */; };
+		0EC199FE22AAE57C10997211CB441B03 /* UIScrollView+SLKAdditions.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = F1026FFE710E3FA3D2FB502FFD3AC798 /* UIScrollView+SLKAdditions.h */; };
+		1C9E4B8DA39935138A0A56BA8393C5C6 /* SLKTextInput.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E19702DC808AD10CA70B957BA00C3F /* SLKTextInput.h */; };
+		24F19B4CDE9F1B47CD9A6FE121CDC1D3 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E72C92C1956DDEF6710431CA19705B10 /* SLKTextInputbar.m */; };
+		465788E34CE367108605F1BF0BB9A3EF /* UIView+SLKAdditions.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 1557EC68C04B869497EFB0D5010424DF /* UIView+SLKAdditions.h */; };
+		49B56001E4CA131FCFC1A7317C80018A /* UIScrollView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F1026FFE710E3FA3D2FB502FFD3AC798 /* UIScrollView+SLKAdditions.h */; };
+		4F99CB8D213BEC2F4F27233993BB2872 /* SLKTextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D42332A1EB46BA192FA0A72AAB9315F /* SLKTextView+SLKAdditions.m */; };
+		5A9BD32FE8E5E287BE11E835A1B97AD1 /* SlackTextViewController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E9F7E5EFD085F409F46098ADBF9EB272 /* SlackTextViewController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		743298EBE9769C8EDE6003F6023F6B5F /* SLKTypingIndicatorProtocol.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = A61EB9A83EC170BA53CD29B16CBB49DA /* SLKTypingIndicatorProtocol.h */; };
+		7A8EA044F96CBE636713396B4775E4D9 /* SLKUIConstants.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 1A66864A3D34AA96B730953E1F7572D7 /* SLKUIConstants.h */; };
+		8EC4F1CD6AB77F2BFC643F19E1E08537 /* SLKTextInput+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D5A9A771025E5098DA344A81852C51 /* SLKTextInput+Implementation.m */; };
+		9153A8974428DEFCA159184C0ADDB2EF /* SLKTypingIndicatorView.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 09FB8C83CFAF21D24D2EB984A91350F4 /* SLKTypingIndicatorView.h */; };
+		941A499C286CDCE75EAD5E870435D483 /* SLKTextView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BB4CF7798185C60A1ABB47FD90997F0A /* SLKTextView+SLKAdditions.h */; };
+		94904A1383F6AF4DF78CC181339673DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		94FA891B73A1FE04731B5384F57772BC /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CCDADBB242FDE745CA013AEFB139DEC /* SLKInputAccessoryView.m */; };
+		9D7719B8C1B0FA53B47391E5C872D01C /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808A10857A08D72870ECF38AF4AB566 /* SLKTextView.m */; };
+		9EE00FBDD2541A762907FC0441F17440 /* SLKTextViewController.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = ECE637E205799509D60DD55D7C6451BB /* SLKTextViewController.h */; };
+		A2160622A4517E464C888CD6257F750C /* SLKInputAccessoryView.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = DEDA72EECEA97A36710BBB439B29980E /* SLKInputAccessoryView.h */; };
+		A533A06E1AD8E2A259A014714F5CB3D7 /* SLKInputAccessoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = DEDA72EECEA97A36710BBB439B29980E /* SLKInputAccessoryView.h */; };
+		AAF8F5A5B8B320DA2064F4744CE1F2EF /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5333FAECD6530DE3AACDBAA187690B7A /* UIResponder+SLKAdditions.m */; };
+		B14FA7C9A0D4A2D5BCC0392958F837C9 /* UIView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1557EC68C04B869497EFB0D5010424DF /* UIView+SLKAdditions.h */; };
+		B1AC7049685FE9CCA9BA056844A58D71 /* SLKTextView+SLKAdditions.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = BB4CF7798185C60A1ABB47FD90997F0A /* SLKTextView+SLKAdditions.h */; };
+		B3A11311266B588F8CC4E83B5A288F95 /* SLKTextInputbar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3EC968EE4A0FD02C03F3CEBE4BAD31D /* SLKTextInputbar.h */; };
+		B3C537680D4AFDC10352E401D90EA50E /* UIResponder+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC2ECC69DDFF20BE7D6EC1B64B8BC4B9 /* UIResponder+SLKAdditions.h */; };
+		B4E7B80ED39F00BBDB0DFCE416DB9BF8 /* UIResponder+SLKAdditions.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = BC2ECC69DDFF20BE7D6EC1B64B8BC4B9 /* UIResponder+SLKAdditions.h */; };
+		B572025F8D2D092445FDB6105689D944 /* Pods-ChatBot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 68ADA6FD9392DE89FD0281BFB61B7062 /* Pods-ChatBot-dummy.m */; };
+		BC9D9EF2193DE91ED35ED750A10380DB /* SLKUIConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A66864A3D34AA96B730953E1F7572D7 /* SLKUIConstants.h */; };
+		C2D89B0E6503858CCBB778BA77BA0BA6 /* SLKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = BE4DCC363061197E421619A8232F78BF /* SLKTextView.h */; };
+		C2DF19A10575F2D573F7808072EEF26D /* SlackTextViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 61AE46A07B54F26A43C51C0C7DA093D6 /* SlackTextViewController-dummy.m */; };
+		D0349AFD0F571D6C08DF3E218593D150 /* SLKTextInput.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = C1E19702DC808AD10CA70B957BA00C3F /* SLKTextInput.h */; };
+		D11D8FF136DD81AABD6A018FA4BA039A /* Pods-ChatBot-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 15C2C0A03DF530FB5DF41983D62647C1 /* Pods-ChatBot-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D322C00341B072575C1F1EF1B02187E0 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F6016E14BFE9BA265960A97118486A00 /* UIView+SLKAdditions.m */; };
+		D7469B291822C70C72E25B19240E15DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		DAFF9835AE0E77C852A447987409DA88 /* SLKTypingIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 09FB8C83CFAF21D24D2EB984A91350F4 /* SLKTypingIndicatorView.h */; };
+		DE3A20C1EC829B8ACB64451534742F08 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2315AA1B212729D7AAA5DF9AB22BB350 /* UIScrollView+SLKAdditions.m */; };
+		EB34C1A7DACA300ABECA373E3CA0B298 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 269682C9874CEE96B89F4B23EF3EC485 /* SLKTypingIndicatorView.m */; };
+		F5388450AED6CFADFAEA9C904B21ADB0 /* SLKTypingIndicatorProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = A61EB9A83EC170BA53CD29B16CBB49DA /* SLKTypingIndicatorProtocol.h */; };
+		F9F350E5F35308FEA770BCA4A31E85E6 /* SLKTextViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE637E205799509D60DD55D7C6451BB /* SLKTextViewController.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC80C609056C82D275021BC4E7519FCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 596BAAAF3E8FEB35A6F9893152CB370C;
+			remoteInfo = SlackTextViewController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D176E9A2A9561B630AC32E4030B4D8AC /* Copy . Public Headers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/.";
+			dstSubfolderSpec = 16;
+			files = (
+				A2160622A4517E464C888CD6257F750C /* SLKInputAccessoryView.h in Copy . Public Headers */,
+				D0349AFD0F571D6C08DF3E218593D150 /* SLKTextInput.h in Copy . Public Headers */,
+				020E969BCAC001179C5BFA0201013EDD /* SLKTextInputbar.h in Copy . Public Headers */,
+				B1AC7049685FE9CCA9BA056844A58D71 /* SLKTextView+SLKAdditions.h in Copy . Public Headers */,
+				0DFCD937F6BCB4A6335B4CD860223129 /* SLKTextView.h in Copy . Public Headers */,
+				9EE00FBDD2541A762907FC0441F17440 /* SLKTextViewController.h in Copy . Public Headers */,
+				743298EBE9769C8EDE6003F6023F6B5F /* SLKTypingIndicatorProtocol.h in Copy . Public Headers */,
+				9153A8974428DEFCA159184C0ADDB2EF /* SLKTypingIndicatorView.h in Copy . Public Headers */,
+				7A8EA044F96CBE636713396B4775E4D9 /* SLKUIConstants.h in Copy . Public Headers */,
+				B4E7B80ED39F00BBDB0DFCE416DB9BF8 /* UIResponder+SLKAdditions.h in Copy . Public Headers */,
+				0EC199FE22AAE57C10997211CB441B03 /* UIScrollView+SLKAdditions.h in Copy . Public Headers */,
+				465788E34CE367108605F1BF0BB9A3EF /* UIView+SLKAdditions.h in Copy . Public Headers */,
+			);
+			name = "Copy . Public Headers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		09FB8C83CFAF21D24D2EB984A91350F4 /* SLKTypingIndicatorView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKTypingIndicatorView.h; path = Source/SLKTypingIndicatorView.h; sourceTree = "<group>"; };
+		121FB1E2C4FA1FD38CF1877A71FE50DF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1557EC68C04B869497EFB0D5010424DF /* UIView+SLKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+SLKAdditions.h"; path = "Source/UIView+SLKAdditions.h"; sourceTree = "<group>"; };
+		15C2C0A03DF530FB5DF41983D62647C1 /* Pods-ChatBot-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ChatBot-umbrella.h"; sourceTree = "<group>"; };
+		1A66864A3D34AA96B730953E1F7572D7 /* SLKUIConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKUIConstants.h; path = Source/SLKUIConstants.h; sourceTree = "<group>"; };
+		21D514A52A85E523AD5D607A1849DC15 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2315AA1B212729D7AAA5DF9AB22BB350 /* UIScrollView+SLKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+SLKAdditions.m"; path = "Source/UIScrollView+SLKAdditions.m"; sourceTree = "<group>"; };
+		269682C9874CEE96B89F4B23EF3EC485 /* SLKTypingIndicatorView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SLKTypingIndicatorView.m; path = Source/SLKTypingIndicatorView.m; sourceTree = "<group>"; };
+		2808A10857A08D72870ECF38AF4AB566 /* SLKTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SLKTextView.m; path = Source/SLKTextView.m; sourceTree = "<group>"; };
+		5333FAECD6530DE3AACDBAA187690B7A /* UIResponder+SLKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIResponder+SLKAdditions.m"; path = "Source/UIResponder+SLKAdditions.m"; sourceTree = "<group>"; };
+		58D7B56777862510A8E456EC25974866 /* Pods-ChatBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ChatBot.debug.xcconfig"; sourceTree = "<group>"; };
+		5986FFC72E8F45E7A3AE3C30CBDF81BF /* Pods_ChatBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ChatBot.framework; path = "Pods-ChatBot.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		598CC319649F8F6E32CBCB667839137C /* Pods-ChatBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ChatBot.release.xcconfig"; sourceTree = "<group>"; };
+		61AE46A07B54F26A43C51C0C7DA093D6 /* SlackTextViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SlackTextViewController-dummy.m"; sourceTree = "<group>"; };
+		639DFBB21D49A7DFDEEB6BD0B90EDA4B /* Pods-ChatBot-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ChatBot-frameworks.sh"; sourceTree = "<group>"; };
+		63EBAE2252CF5083B0088AA04391DF87 /* Pods-ChatBot-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ChatBot-acknowledgements.plist"; sourceTree = "<group>"; };
+		68ADA6FD9392DE89FD0281BFB61B7062 /* Pods-ChatBot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ChatBot-dummy.m"; sourceTree = "<group>"; };
+		82A72C9AE2B13A6EB3B1BDA623AA3CC2 /* SLKTextViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SLKTextViewController.m; path = Source/SLKTextViewController.m; sourceTree = "<group>"; };
+		8596367480992EFD1E4BB365C027722C /* SlackTextViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SlackTextViewController.xcconfig; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		96534E77F14285885542B861BFBE22EB /* SlackTextViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlackTextViewController-prefix.pch"; sourceTree = "<group>"; };
+		9CCDADBB242FDE745CA013AEFB139DEC /* SLKInputAccessoryView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SLKInputAccessoryView.m; path = Source/SLKInputAccessoryView.m; sourceTree = "<group>"; };
+		9D42332A1EB46BA192FA0A72AAB9315F /* SLKTextView+SLKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SLKTextView+SLKAdditions.m"; path = "Source/SLKTextView+SLKAdditions.m"; sourceTree = "<group>"; };
+		A61EB9A83EC170BA53CD29B16CBB49DA /* SLKTypingIndicatorProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKTypingIndicatorProtocol.h; path = Source/SLKTypingIndicatorProtocol.h; sourceTree = "<group>"; };
+		BB4CF7798185C60A1ABB47FD90997F0A /* SLKTextView+SLKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SLKTextView+SLKAdditions.h"; path = "Source/SLKTextView+SLKAdditions.h"; sourceTree = "<group>"; };
+		BC2ECC69DDFF20BE7D6EC1B64B8BC4B9 /* UIResponder+SLKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIResponder+SLKAdditions.h"; path = "Source/UIResponder+SLKAdditions.h"; sourceTree = "<group>"; };
+		BE4DCC363061197E421619A8232F78BF /* SLKTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKTextView.h; path = Source/SLKTextView.h; sourceTree = "<group>"; };
+		BEF8AA7A17202FCDC7BAC7370DF0B99D /* Pods-ChatBot.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ChatBot.modulemap"; sourceTree = "<group>"; };
+		C1E19702DC808AD10CA70B957BA00C3F /* SLKTextInput.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKTextInput.h; path = Source/SLKTextInput.h; sourceTree = "<group>"; };
+		C5D5A9A771025E5098DA344A81852C51 /* SLKTextInput+Implementation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SLKTextInput+Implementation.m"; path = "Source/SLKTextInput+Implementation.m"; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CBE67495DF553D99CDEDEBC274A65F3B /* Pods-ChatBot-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ChatBot-resources.sh"; sourceTree = "<group>"; };
+		DEDA72EECEA97A36710BBB439B29980E /* SLKInputAccessoryView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKInputAccessoryView.h; path = Source/SLKInputAccessoryView.h; sourceTree = "<group>"; };
+		E3EC968EE4A0FD02C03F3CEBE4BAD31D /* SLKTextInputbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKTextInputbar.h; path = Source/SLKTextInputbar.h; sourceTree = "<group>"; };
+		E72C92C1956DDEF6710431CA19705B10 /* SLKTextInputbar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SLKTextInputbar.m; path = Source/SLKTextInputbar.m; sourceTree = "<group>"; };
+		E9F7E5EFD085F409F46098ADBF9EB272 /* SlackTextViewController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlackTextViewController-umbrella.h"; sourceTree = "<group>"; };
+		ECE637E205799509D60DD55D7C6451BB /* SLKTextViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SLKTextViewController.h; path = Source/SLKTextViewController.h; sourceTree = "<group>"; };
+		F1026FFE710E3FA3D2FB502FFD3AC798 /* UIScrollView+SLKAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+SLKAdditions.h"; path = "Source/UIScrollView+SLKAdditions.h"; sourceTree = "<group>"; };
+		F6016E14BFE9BA265960A97118486A00 /* UIView+SLKAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+SLKAdditions.m"; path = "Source/UIView+SLKAdditions.m"; sourceTree = "<group>"; };
+		F831346626580B700EB9DB147262FD9F /* SlackTextViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SlackTextViewController.framework; path = SlackTextViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB2B564696598D76B0543721CAF979F2 /* Pods-ChatBot-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ChatBot-acknowledgements.markdown"; sourceTree = "<group>"; };
+		FB8ECD43A3B432B813AF82F0EAE909DC /* SlackTextViewController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SlackTextViewController.modulemap; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		66B2C2BA2694E589ED5833A8F397CF9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7469B291822C70C72E25B19240E15DB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5DA75B4463389DF3DFBDE8E38CDB2A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94904A1383F6AF4DF78CC181339673DC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14F30DE607AC58A6F189D961EB9A4713 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				121FB1E2C4FA1FD38CF1877A71FE50DF /* Info.plist */,
+				FB8ECD43A3B432B813AF82F0EAE909DC /* SlackTextViewController.modulemap */,
+				8596367480992EFD1E4BB365C027722C /* SlackTextViewController.xcconfig */,
+				61AE46A07B54F26A43C51C0C7DA093D6 /* SlackTextViewController-dummy.m */,
+				96534E77F14285885542B861BFBE22EB /* SlackTextViewController-prefix.pch */,
+				E9F7E5EFD085F409F46098ADBF9EB272 /* SlackTextViewController-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SlackTextViewController";
+			sourceTree = "<group>";
+		};
+		4A29B9EAA3D5BC7286696F3D44D84B35 /* SlackTextViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DEDA72EECEA97A36710BBB439B29980E /* SLKInputAccessoryView.h */,
+				9CCDADBB242FDE745CA013AEFB139DEC /* SLKInputAccessoryView.m */,
+				C1E19702DC808AD10CA70B957BA00C3F /* SLKTextInput.h */,
+				C5D5A9A771025E5098DA344A81852C51 /* SLKTextInput+Implementation.m */,
+				E3EC968EE4A0FD02C03F3CEBE4BAD31D /* SLKTextInputbar.h */,
+				E72C92C1956DDEF6710431CA19705B10 /* SLKTextInputbar.m */,
+				BE4DCC363061197E421619A8232F78BF /* SLKTextView.h */,
+				2808A10857A08D72870ECF38AF4AB566 /* SLKTextView.m */,
+				BB4CF7798185C60A1ABB47FD90997F0A /* SLKTextView+SLKAdditions.h */,
+				9D42332A1EB46BA192FA0A72AAB9315F /* SLKTextView+SLKAdditions.m */,
+				ECE637E205799509D60DD55D7C6451BB /* SLKTextViewController.h */,
+				82A72C9AE2B13A6EB3B1BDA623AA3CC2 /* SLKTextViewController.m */,
+				A61EB9A83EC170BA53CD29B16CBB49DA /* SLKTypingIndicatorProtocol.h */,
+				09FB8C83CFAF21D24D2EB984A91350F4 /* SLKTypingIndicatorView.h */,
+				269682C9874CEE96B89F4B23EF3EC485 /* SLKTypingIndicatorView.m */,
+				1A66864A3D34AA96B730953E1F7572D7 /* SLKUIConstants.h */,
+				BC2ECC69DDFF20BE7D6EC1B64B8BC4B9 /* UIResponder+SLKAdditions.h */,
+				5333FAECD6530DE3AACDBAA187690B7A /* UIResponder+SLKAdditions.m */,
+				F1026FFE710E3FA3D2FB502FFD3AC798 /* UIScrollView+SLKAdditions.h */,
+				2315AA1B212729D7AAA5DF9AB22BB350 /* UIScrollView+SLKAdditions.m */,
+				1557EC68C04B869497EFB0D5010424DF /* UIView+SLKAdditions.h */,
+				F6016E14BFE9BA265960A97118486A00 /* UIView+SLKAdditions.m */,
+				14F30DE607AC58A6F189D961EB9A4713 /* Support Files */,
+			);
+			name = SlackTextViewController;
+			path = SlackTextViewController;
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7794DED4374096E4186D9043820D8ABE /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CD3C0723D8E52C8D8759BA0FFDFDB0E4 /* Pods-ChatBot */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				A46CCEA49A5613720BDEA6B8EDF83003 /* Pods */,
+				87BBAE31E5290E752E091B5B0D2FC715 /* Products */,
+				7794DED4374096E4186D9043820D8ABE /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		87BBAE31E5290E752E091B5B0D2FC715 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5986FFC72E8F45E7A3AE3C30CBDF81BF /* Pods_ChatBot.framework */,
+				F831346626580B700EB9DB147262FD9F /* SlackTextViewController.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A46CCEA49A5613720BDEA6B8EDF83003 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4A29B9EAA3D5BC7286696F3D44D84B35 /* SlackTextViewController */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD3C0723D8E52C8D8759BA0FFDFDB0E4 /* Pods-ChatBot */ = {
+			isa = PBXGroup;
+			children = (
+				21D514A52A85E523AD5D607A1849DC15 /* Info.plist */,
+				BEF8AA7A17202FCDC7BAC7370DF0B99D /* Pods-ChatBot.modulemap */,
+				FB2B564696598D76B0543721CAF979F2 /* Pods-ChatBot-acknowledgements.markdown */,
+				63EBAE2252CF5083B0088AA04391DF87 /* Pods-ChatBot-acknowledgements.plist */,
+				68ADA6FD9392DE89FD0281BFB61B7062 /* Pods-ChatBot-dummy.m */,
+				639DFBB21D49A7DFDEEB6BD0B90EDA4B /* Pods-ChatBot-frameworks.sh */,
+				CBE67495DF553D99CDEDEBC274A65F3B /* Pods-ChatBot-resources.sh */,
+				15C2C0A03DF530FB5DF41983D62647C1 /* Pods-ChatBot-umbrella.h */,
+				58D7B56777862510A8E456EC25974866 /* Pods-ChatBot.debug.xcconfig */,
+				598CC319649F8F6E32CBCB667839137C /* Pods-ChatBot.release.xcconfig */,
+			);
+			name = "Pods-ChatBot";
+			path = "Target Support Files/Pods-ChatBot";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		52B0DFA7C65021A618900F16422583DC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A9BD32FE8E5E287BE11E835A1B97AD1 /* SlackTextViewController-umbrella.h in Headers */,
+				A533A06E1AD8E2A259A014714F5CB3D7 /* SLKInputAccessoryView.h in Headers */,
+				1C9E4B8DA39935138A0A56BA8393C5C6 /* SLKTextInput.h in Headers */,
+				B3A11311266B588F8CC4E83B5A288F95 /* SLKTextInputbar.h in Headers */,
+				941A499C286CDCE75EAD5E870435D483 /* SLKTextView+SLKAdditions.h in Headers */,
+				C2D89B0E6503858CCBB778BA77BA0BA6 /* SLKTextView.h in Headers */,
+				F9F350E5F35308FEA770BCA4A31E85E6 /* SLKTextViewController.h in Headers */,
+				F5388450AED6CFADFAEA9C904B21ADB0 /* SLKTypingIndicatorProtocol.h in Headers */,
+				DAFF9835AE0E77C852A447987409DA88 /* SLKTypingIndicatorView.h in Headers */,
+				BC9D9EF2193DE91ED35ED750A10380DB /* SLKUIConstants.h in Headers */,
+				B3C537680D4AFDC10352E401D90EA50E /* UIResponder+SLKAdditions.h in Headers */,
+				49B56001E4CA131FCFC1A7317C80018A /* UIScrollView+SLKAdditions.h in Headers */,
+				B14FA7C9A0D4A2D5BCC0392958F837C9 /* UIView+SLKAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA5770040B70F488B88B9F4D0C9E4207 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D11D8FF136DD81AABD6A018FA4BA039A /* Pods-ChatBot-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		596BAAAF3E8FEB35A6F9893152CB370C /* SlackTextViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C346E998F9AA0D23B1BB3A1CA53F7E4F /* Build configuration list for PBXNativeTarget "SlackTextViewController" */;
+			buildPhases = (
+				1230B8E9663990A271FE02495BD9A757 /* Sources */,
+				A5DA75B4463389DF3DFBDE8E38CDB2A9 /* Frameworks */,
+				52B0DFA7C65021A618900F16422583DC /* Headers */,
+				D176E9A2A9561B630AC32E4030B4D8AC /* Copy . Public Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlackTextViewController;
+			productName = SlackTextViewController;
+			productReference = F831346626580B700EB9DB147262FD9F /* SlackTextViewController.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FF10FE171B92AE3CCB87D39FF4DD0691 /* Pods-ChatBot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25D856464DE8EEFD1639E9246C6D9690 /* Build configuration list for PBXNativeTarget "Pods-ChatBot" */;
+			buildPhases = (
+				4D4D106D48AF86555180CDEADF45C8F0 /* Sources */,
+				66B2C2BA2694E589ED5833A8F397CF9F /* Frameworks */,
+				AA5770040B70F488B88B9F4D0C9E4207 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1944BFB0E0874FA4B67AC8FC431BAFBC /* PBXTargetDependency */,
+			);
+			name = "Pods-ChatBot";
+			productName = "Pods-ChatBot";
+			productReference = 5986FFC72E8F45E7A3AE3C30CBDF81BF /* Pods_ChatBot.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 87BBAE31E5290E752E091B5B0D2FC715 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FF10FE171B92AE3CCB87D39FF4DD0691 /* Pods-ChatBot */,
+				596BAAAF3E8FEB35A6F9893152CB370C /* SlackTextViewController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1230B8E9663990A271FE02495BD9A757 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2DF19A10575F2D573F7808072EEF26D /* SlackTextViewController-dummy.m in Sources */,
+				94FA891B73A1FE04731B5384F57772BC /* SLKInputAccessoryView.m in Sources */,
+				8EC4F1CD6AB77F2BFC643F19E1E08537 /* SLKTextInput+Implementation.m in Sources */,
+				24F19B4CDE9F1B47CD9A6FE121CDC1D3 /* SLKTextInputbar.m in Sources */,
+				4F99CB8D213BEC2F4F27233993BB2872 /* SLKTextView+SLKAdditions.m in Sources */,
+				9D7719B8C1B0FA53B47391E5C872D01C /* SLKTextView.m in Sources */,
+				06CB3AA211BDD9F5DD04A6A4BB5A2A25 /* SLKTextViewController.m in Sources */,
+				EB34C1A7DACA300ABECA373E3CA0B298 /* SLKTypingIndicatorView.m in Sources */,
+				AAF8F5A5B8B320DA2064F4744CE1F2EF /* UIResponder+SLKAdditions.m in Sources */,
+				DE3A20C1EC829B8ACB64451534742F08 /* UIScrollView+SLKAdditions.m in Sources */,
+				D322C00341B072575C1F1EF1B02187E0 /* UIView+SLKAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D4D106D48AF86555180CDEADF45C8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B572025F8D2D092445FDB6105689D944 /* Pods-ChatBot-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1944BFB0E0874FA4B67AC8FC431BAFBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SlackTextViewController;
+			target = 596BAAAF3E8FEB35A6F9893152CB370C /* SlackTextViewController */;
+			targetProxy = CC80C609056C82D275021BC4E7519FCE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05DBF1B2B0591ECF2BA600DB0DC27F25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 598CC319649F8F6E32CBCB667839137C /* Pods-ChatBot.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ChatBot/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ChatBot/Pods-ChatBot.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ChatBot;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		61C249B7BE4FB0197DBE97E883887F00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8596367480992EFD1E4BB365C027722C /* SlackTextViewController.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SlackTextViewController/SlackTextViewController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SlackTextViewController/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SlackTextViewController/SlackTextViewController.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SlackTextViewController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		673254EEAF0B5BF4596080C749645884 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE4B5FB451B236A72C8D31D893900863 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8596367480992EFD1E4BB365C027722C /* SlackTextViewController.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SlackTextViewController/SlackTextViewController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SlackTextViewController/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SlackTextViewController/SlackTextViewController.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SlackTextViewController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E4F26E6EB105713A6A7E7E2E283AC2DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		EF85EF08A8603BC053EEB6433E00D9E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58D7B56777862510A8E456EC25974866 /* Pods-ChatBot.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ChatBot/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ChatBot/Pods-ChatBot.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ChatBot;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		25D856464DE8EEFD1639E9246C6D9690 /* Build configuration list for PBXNativeTarget "Pods-ChatBot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF85EF08A8603BC053EEB6433E00D9E7 /* Debug */,
+				05DBF1B2B0591ECF2BA600DB0DC27F25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4F26E6EB105713A6A7E7E2E283AC2DF /* Debug */,
+				673254EEAF0B5BF4596080C749645884 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C346E998F9AA0D23B1BB3A1CA53F7E4F /* Build configuration list for PBXNativeTarget "SlackTextViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE4B5FB451B236A72C8D31D893900863 /* Debug */,
+				61C249B7BE4FB0197DBE97E883887F00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
