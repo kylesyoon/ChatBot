@@ -15,6 +15,15 @@
 		5A0E2DB61E6876B300C62229 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DB51E6876B300C62229 /* MessageCell.swift */; };
 		5A0E2DB81E6876CF00C62229 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0E2DB71E6876CF00C62229 /* MessageCell.xib */; };
 		5A0E2DBB1E687B8500C62229 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DBA1E687B8500C62229 /* Message.swift */; };
+		5A0E2DBE1E68BA3200C62229 /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DBD1E68BA3200C62229 /* MessageResponse.swift */; };
+		5A0E2DC01E68BA6B00C62229 /* MessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DBF1E68BA6B00C62229 /* MessageInput.swift */; };
+		5A0E2DC21E68BAC500C62229 /* RuntimeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DC11E68BAC500C62229 /* RuntimeIntent.swift */; };
+		5A0E2DC41E68BB5400C62229 /* RuntimeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DC31E68BB5400C62229 /* RuntimeEntity.swift */; };
+		5A0E2DC61E68BBAE00C62229 /* RuntimeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DC51E68BBAE00C62229 /* RuntimeContext.swift */; };
+		5A0E2DC81E68BC1300C62229 /* RuntimeOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DC71E68BC1300C62229 /* RuntimeOutput.swift */; };
+		5A0E2DCB1E68BE6900C62229 /* RuntimeSystemContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */; };
+		5A0E2DCD1E68BE8F00C62229 /* RuntimeDialogStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */; };
+		5A0E2DCF1E68BEE400C62229 /* RuntimeLogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */; };
 		CEACFD6DE05E454B00B7C910 /* Pods_ChatBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF3AD1DB90DE2793D8EB3B /* Pods_ChatBot.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +38,15 @@
 		5A0E2DB51E6876B300C62229 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		5A0E2DB71E6876CF00C62229 /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		5A0E2DBA1E687B8500C62229 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5A0E2DBD1E68BA3200C62229 /* MessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageResponse.swift; sourceTree = "<group>"; };
+		5A0E2DBF1E68BA6B00C62229 /* MessageInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInput.swift; sourceTree = "<group>"; };
+		5A0E2DC11E68BAC500C62229 /* RuntimeIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeIntent.swift; sourceTree = "<group>"; };
+		5A0E2DC31E68BB5400C62229 /* RuntimeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeEntity.swift; sourceTree = "<group>"; };
+		5A0E2DC51E68BBAE00C62229 /* RuntimeContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeContext.swift; sourceTree = "<group>"; };
+		5A0E2DC71E68BC1300C62229 /* RuntimeOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeOutput.swift; sourceTree = "<group>"; };
+		5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeSystemContext.swift; sourceTree = "<group>"; };
+		5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeDialogStack.swift; sourceTree = "<group>"; };
+		5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeLogMessage.swift; sourceTree = "<group>"; };
 		80AF3AD1DB90DE2793D8EB3B /* Pods_ChatBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0BF0B76AC72411AA31B318 /* Pods-ChatBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatBot/Pods-ChatBot.debug.xcconfig"; sourceTree = "<group>"; };
 		FBC84770F87B0C7C4E28C19A /* Pods-ChatBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatBot/Pods-ChatBot.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,8 +102,25 @@
 				5A0E2DA81E686E2F00C62229 /* Assets.xcassets */,
 				5A0E2DAA1E686E2F00C62229 /* LaunchScreen.storyboard */,
 				5A0E2DAD1E686E2F00C62229 /* Info.plist */,
+				5A0E2DC91E68BD4800C62229 /* Watson Models */,
 			);
 			path = ChatBot;
+			sourceTree = "<group>";
+		};
+		5A0E2DC91E68BD4800C62229 /* Watson Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A0E2DBD1E68BA3200C62229 /* MessageResponse.swift */,
+				5A0E2DBF1E68BA6B00C62229 /* MessageInput.swift */,
+				5A0E2DC11E68BAC500C62229 /* RuntimeIntent.swift */,
+				5A0E2DC31E68BB5400C62229 /* RuntimeEntity.swift */,
+				5A0E2DC51E68BBAE00C62229 /* RuntimeContext.swift */,
+				5A0E2DC71E68BC1300C62229 /* RuntimeOutput.swift */,
+				5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */,
+				5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */,
+				5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */,
+			);
+			name = "Watson Models";
 			sourceTree = "<group>";
 		};
 		A38DD90893F286C5E8C36A34 /* Pods */ = {
@@ -221,10 +256,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A0E2DC61E68BBAE00C62229 /* RuntimeContext.swift in Sources */,
+				5A0E2DCD1E68BE8F00C62229 /* RuntimeDialogStack.swift in Sources */,
+				5A0E2DBE1E68BA3200C62229 /* MessageResponse.swift in Sources */,
 				5A0E2DB61E6876B300C62229 /* MessageCell.swift in Sources */,
 				5A0E2DBB1E687B8500C62229 /* Message.swift in Sources */,
+				5A0E2DC21E68BAC500C62229 /* RuntimeIntent.swift in Sources */,
 				5A0E2DB41E686F1700C62229 /* MessageViewController.swift in Sources */,
+				5A0E2DC01E68BA6B00C62229 /* MessageInput.swift in Sources */,
+				5A0E2DC81E68BC1300C62229 /* RuntimeOutput.swift in Sources */,
 				5A0E2DA21E686E2F00C62229 /* AppDelegate.swift in Sources */,
+				5A0E2DC41E68BB5400C62229 /* RuntimeEntity.swift in Sources */,
+				5A0E2DCF1E68BEE400C62229 /* RuntimeLogMessage.swift in Sources */,
+				5A0E2DCB1E68BE6900C62229 /* RuntimeSystemContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

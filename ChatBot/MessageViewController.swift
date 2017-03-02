@@ -8,10 +8,15 @@
 
 import Foundation
 import SlackTextViewController
+import Alamofire
 
 class MessageViewController: SLKTextViewController {
     
     var messages = [Message]()
+    
+    let username = "90a09232-7091-4542-ab17-3460d0a4ccfc"
+    let password = "ltE5kT6pnkUR"
+    var workspaceIdentifier: String?
     
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: style)
@@ -33,6 +38,18 @@ class MessageViewController: SLKTextViewController {
         tableView?.separatorStyle = .none
         tableView?.register(UINib(nibName: String(describing: MessageCell.self), bundle: nil),
                             forCellReuseIdentifier: String(describing: MessageCell.self))
+        
+        Alamofire.request("https://gateway.watsonplatform.net/conversation/api/v1/workspaces?version=2017-02-03")
+            .authenticate(user: username, password: password)
+            .responseJSON {
+                [weak self]
+                response in
+                if let json = response.result.value as? [String: Any],
+                    let workspaces = json["workspaces"] as? [[String: Any]],
+                    let workspaceIdentifier = workspaces.first?["workspace_id"] as? String {
+                    self?.workspaceIdentifier = workspaceIdentifier
+                }
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,7 +84,7 @@ class MessageViewController: SLKTextViewController {
         
         let message = Message(username: "Me", text: self.textView.text)
         let indexPath = IndexPath(row: 0, section: 0)
-        
+
         self.tableView?.beginUpdates()
         self.messages.insert(message, at: 0)
         self.tableView?.insertRows(at: [indexPath], with: .bottom)
@@ -76,6 +93,31 @@ class MessageViewController: SLKTextViewController {
         self.tableView?.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
         super.didPressRightButton(sender)
+        
+        query(with: message.text)
+    }
+    
+    func query(with message: String) {
+        guard let workspaceIdentifier = workspaceIdentifier else {
+            return
+        }
+        
+        let input = ["text": message]
+        let json = ["input": input]
+
+        Alamofire
+            .request("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/\(workspaceIdentifier)/message?version=2017-02-03",
+                method: .post,
+                parameters: json,
+                encoding: JSONEncoding.default,
+                headers: ["Content-Type": "application/json"])
+            .authenticate(user: username, password: password)
+            .responseJSON { response in
+                if let json = response.result.value as? [String: Any],
+                    let model = MessageResponse(json: json) {
+                    
+                }
+        }
     }
     
 }
