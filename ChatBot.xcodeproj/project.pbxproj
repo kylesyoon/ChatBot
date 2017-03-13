@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51DE1C911E77378400CFFDD1 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE1C901E77378400CFFDD1 /* Keys.swift */; };
 		5A0E2DA21E686E2F00C62229 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DA11E686E2F00C62229 /* AppDelegate.swift */; };
 		5A0E2DA71E686E2F00C62229 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A0E2DA51E686E2F00C62229 /* Main.storyboard */; };
 		5A0E2DA91E686E2F00C62229 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A0E2DA81E686E2F00C62229 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51DE1C901E77378400CFFDD1 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		5A0E2D9E1E686E2F00C62229 /* ChatBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A0E2DA11E686E2F00C62229 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A0E2DA61E686E2F00C62229 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,6 +74,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		51DE1C921E77391500CFFDD1 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				5A0E2DA81E686E2F00C62229 /* Assets.xcassets */,
+				5A0E2DAA1E686E2F00C62229 /* LaunchScreen.storyboard */,
+				5A0E2DAD1E686E2F00C62229 /* Info.plist */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
 		5A0E2D951E686E2F00C62229 = {
 			isa = PBXGroup;
 			children = (
@@ -93,16 +105,15 @@
 		5A0E2DA01E686E2F00C62229 /* ChatBot */ = {
 			isa = PBXGroup;
 			children = (
+				51DE1C901E77378400CFFDD1 /* Keys.swift */,
 				5A0E2DA11E686E2F00C62229 /* AppDelegate.swift */,
 				5A0E2DB31E686F1700C62229 /* MessageViewController.swift */,
 				5A0E2DBA1E687B8500C62229 /* Message.swift */,
 				5A0E2DB51E6876B300C62229 /* MessageCell.swift */,
 				5A0E2DB71E6876CF00C62229 /* MessageCell.xib */,
-				5A0E2DA51E686E2F00C62229 /* Main.storyboard */,
-				5A0E2DA81E686E2F00C62229 /* Assets.xcassets */,
-				5A0E2DAA1E686E2F00C62229 /* LaunchScreen.storyboard */,
-				5A0E2DAD1E686E2F00C62229 /* Info.plist */,
 				5A0E2DC91E68BD4800C62229 /* Watson Models */,
+				5A0E2DA51E686E2F00C62229 /* Main.storyboard */,
+				51DE1C921E77391500CFFDD1 /* Others */,
 			);
 			path = ChatBot;
 			sourceTree = "<group>";
@@ -259,6 +270,7 @@
 				5A0E2DC61E68BBAE00C62229 /* RuntimeContext.swift in Sources */,
 				5A0E2DCD1E68BE8F00C62229 /* RuntimeDialogStack.swift in Sources */,
 				5A0E2DBE1E68BA3200C62229 /* MessageResponse.swift in Sources */,
+				51DE1C911E77378400CFFDD1 /* Keys.swift in Sources */,
 				5A0E2DB61E6876B300C62229 /* MessageCell.swift in Sources */,
 				5A0E2DBB1E687B8500C62229 /* Message.swift in Sources */,
 				5A0E2DC21E68BAC500C62229 /* RuntimeIntent.swift in Sources */,
@@ -394,6 +406,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apps.yoon.ChatBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -407,6 +420,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apps.yoon.ChatBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

@@ -91,11 +91,13 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Gloss/Gloss.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/QPXExpressWrapper/QPXExpressWrapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SlackTextViewController/SlackTextViewController.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Gloss/Gloss.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/QPXExpressWrapper/QPXExpressWrapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SlackTextViewController/SlackTextViewController.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

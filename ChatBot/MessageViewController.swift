@@ -12,11 +12,12 @@ import Alamofire
 
 class MessageViewController: SLKTextViewController {
     
-    var messages = [Message]()
+    let conversationURL = "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/"
+    let versionParameter = "version=2017-02-03"
     
-    let username = "90a09232-7091-4542-ab17-3460d0a4ccfc"
-    let password = "ltE5kT6pnkUR"
+    var messages = [Message]()
     var workspaceIdentifier: String?
+    var isSignedIn: Bool = false
     
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: style)
@@ -39,7 +40,7 @@ class MessageViewController: SLKTextViewController {
         tableView?.register(UINib(nibName: String(describing: MessageCell.self), bundle: nil),
                             forCellReuseIdentifier: String(describing: MessageCell.self))
         
-        Alamofire.request("https://gateway.watsonplatform.net/conversation/api/v1/workspaces?version=2017-02-03")
+        Alamofire.request(conversationURL + "?" + versionParameter)
             .authenticate(user: username, password: password)
             .responseJSON {
                 [weak self]
@@ -51,7 +52,7 @@ class MessageViewController: SLKTextViewController {
                 }
         }
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -65,7 +66,6 @@ class MessageViewController: SLKTextViewController {
                                                        for: indexPath) as? MessageCell else {
             return UITableViewCell()
         }
-        
         let message = messages[indexPath.row]
         cell.avatarImageView.image = #imageLiteral(resourceName: "anon")
         cell.titleLabel.text = message.username
@@ -106,7 +106,7 @@ class MessageViewController: SLKTextViewController {
         let json = ["input": input]
 
         Alamofire
-            .request("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/\(workspaceIdentifier)/message?version=2017-02-03",
+            .request(conversationURL + "\(workspaceIdentifier)/message?" + versionParameter,
                 method: .post,
                 parameters: json,
                 encoding: JSONEncoding.default,
@@ -114,8 +114,20 @@ class MessageViewController: SLKTextViewController {
             .authenticate(user: username, password: password)
             .responseJSON { response in
                 if let json = response.result.value as? [String: Any],
-                    let model = MessageResponse(json: json) {
-                    
+                    let model = MessageResponse(json: json),
+                    let output = model.output,
+                    let text = output.text,
+                    let firstText = text.first {
+                    let message = Message(username: "ChatBot", text: firstText)
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    self.tableView?.beginUpdates()
+                    self.messages.insert(message, at: 0)
+                    self.tableView?.insertRows(at: [indexPath],
+                                               with: .bottom)
+                    self.tableView?.endUpdates()
+                    self.tableView?.scrollToRow(at: indexPath,
+                                                at: .bottom,
+                                                animated: true)
                 }
         }
     }

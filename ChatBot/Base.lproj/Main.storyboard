@@ -23,10 +23,45 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="b0G-f2-yVN"/>
+                    <connections>
+                        <segue destination="wkk-pL-V3a" kind="presentation" identifier="signInSegue" id="7SJ-Vv-7I8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="978" y="692"/>
+        </scene>
+        <!--Sign In View Controller-->
+        <scene sceneID="mCr-rt-Ooo">
+            <objects>
+                <viewController id="wkk-pL-V3a" customClass="SignInViewController" customModule="ChatBot" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hvg-oW-Qyv"/>
+                        <viewControllerLayoutGuide type="bottom" id="ldG-d3-SPQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="r5x-K4-2JC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbx-U4-r9R" customClass="GIDSignInButton">
+                                <rect key="frame" x="68" y="290" width="240" height="88"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="gr7-u6-n40"/>
+                                    <constraint firstAttribute="width" constant="240" id="hfA-Ae-cJg"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qbx-U4-r9R" firstAttribute="centerY" secondItem="r5x-K4-2JC" secondAttribute="centerY" id="C0f-OX-r8Q"/>
+                            <constraint firstItem="Qbx-U4-r9R" firstAttribute="centerX" secondItem="r5x-K4-2JC" secondAttribute="centerX" id="fgO-kY-yvJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="elS-hV-fUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1815" y="692"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CVs-xX-Ph5">

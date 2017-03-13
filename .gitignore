@@ -65,3 +65,6 @@ Carthage/Build
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+
+ChatBot/Keys.swift
+.DS_Store

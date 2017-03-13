@@ -1,18 +1,22 @@
 PODS:
   - Alamofire (4.4.0)
   - Gloss (1.2.1)
+  - QPXExpressWrapper (0.2.2):
+    - Gloss (~> 1.2)
   - SlackTextViewController (1.9.5)
 
 DEPENDENCIES:
   - Alamofire
   - Gloss
+  - QPXExpressWrapper
   - SlackTextViewController
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Gloss: 9ab33b8ede01e4232571d43a6bf9259b85d1de69
+  QPXExpressWrapper: bfb5957b40fa10f4fbda272c1d13d726daab3a19
   SlackTextViewController: fbcdadbb8090673f604484ff5b6eb8d77baed42a
 
-PODFILE CHECKSUM: c76daaf3ad3ae88d9fe75035452ac636f92ebbf5
+PODFILE CHECKSUM: 614949b160f26076969ea844fd307e0d523cdb39
 
 COCOAPODS: 1.2.0
