@@ -6,11 +6,12 @@
 //  Copyright © 2017 Kyle Yoon. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Message {
     
     let username: String
     let text: String
+    let profileImage: UIImage
     
 }

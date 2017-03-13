@@ -20,8 +20,23 @@ struct MessageResponse: Decodable {
     
     init?(json: JSON) {
         self.input = "input" <~~ json
-        self.intents = "intents" <~~ json
-        self.entities  = "entities" <~~ json
+        
+        if let intentsJSON = json["intents"] as? [JSON],
+            let intents = [RuntimeIntent].from(jsonArray: intentsJSON) {
+            self.intents = intents
+        }
+        else {
+            self.intents = nil
+        }
+        
+        if let entitiesJSON = json["entities"] as? [JSON],
+            let entities = [RuntimeEntity].from(jsonArray: entitiesJSON) {
+            self.entities = entities
+        }
+        else {
+            self.entities = nil
+        }
+        
         self.alternateIntents = "alternate_intents" <~~ json
         self.context = "context" <~~ json
         self.output = "output" <~~ json

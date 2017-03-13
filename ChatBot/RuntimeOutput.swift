@@ -17,8 +17,15 @@ struct RuntimeOutput: Decodable {
     
     init?(json: JSON) {
         self.text = "text" <~~ json
-        self.logMessages = "log_messages" <~~ json
         self.nodesVisited = "nodes_visited" <~~ json
+        
+        if let logMessagesJSON = json["log_messages"] as? [JSON],
+            let logMessages = [RuntimeLogMessage].from(jsonArray: logMessagesJSON) {
+            self.logMessages = logMessages
+        }
+        else {
+            self.logMessages = nil
+        }
     }
     
 }

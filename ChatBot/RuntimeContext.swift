@@ -9,7 +9,7 @@
 import Foundation
 import Gloss
 
-struct RuntimeContext: Decodable {
+struct RuntimeContext: Decodable, Encodable {
     
     let conversationIdentifier: String?
     let system: RuntimeSystemContext?
@@ -17,6 +17,13 @@ struct RuntimeContext: Decodable {
     init?(json: JSON) {
         self.conversationIdentifier = "conversation_id" <~~ json
         self.system = "system" <~~ json
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "conversation_id" ~~> self.conversationIdentifier,
+            "system" ~~> self.system
+            ])
     }
     
 }

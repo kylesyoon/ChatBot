@@ -9,7 +9,7 @@
 import Foundation
 import Gloss
 
-struct RuntimeDialogStack: Decodable {
+struct RuntimeDialogStack: Decodable, Encodable {
     
     let dialogNode: String?
     let invokedSubdialog: String?
@@ -17,6 +17,13 @@ struct RuntimeDialogStack: Decodable {
     init?(json: JSON) {
         self.dialogNode = "dialog_node" <~~ json
         self.invokedSubdialog = "invoked_subdialog" <~~ json
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "dialog_node" ~~> self.dialogNode,
+            "invoked_subdialog" ~~> self.invokedSubdialog
+            ])
     }
     
 }

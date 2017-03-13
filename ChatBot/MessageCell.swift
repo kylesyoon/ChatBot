@@ -13,5 +13,11 @@ class MessageCell: UITableViewCell {
     @IBOutlet var avatarImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var detailLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2.0
+        avatarImageView.layer.masksToBounds = true
+    }
     
 }

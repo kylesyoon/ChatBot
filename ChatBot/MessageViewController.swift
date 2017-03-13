@@ -18,6 +18,7 @@ class MessageViewController: SLKTextViewController {
     var messages = [Message]()
     var workspaceIdentifier: String?
     var isSignedIn: Bool = false
+    var previousContext: RuntimeContext?
     
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: style)
@@ -67,7 +68,7 @@ class MessageViewController: SLKTextViewController {
             return UITableViewCell()
         }
         let message = messages[indexPath.row]
-        cell.avatarImageView.image = #imageLiteral(resourceName: "anon")
+        cell.avatarImageView.image = message.profileImage
         cell.titleLabel.text = message.username
         cell.detailLabel.text = message.text
         
@@ -82,15 +83,19 @@ class MessageViewController: SLKTextViewController {
         // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
         self.textView.refreshFirstResponder()
         
-        let message = Message(username: "Me", text: self.textView.text)
+        let message = Message(username: "Me",
+                              text: self.textView.text,
+                              profileImage: #imageLiteral(resourceName: "me"))
         let indexPath = IndexPath(row: 0, section: 0)
-
+        
         self.tableView?.beginUpdates()
         self.messages.insert(message, at: 0)
-        self.tableView?.insertRows(at: [indexPath], with: .bottom)
+        self.tableView?.insertRows(at: [indexPath],
+                                   with: .bottom)
         self.tableView?.endUpdates()
-        
-        self.tableView?.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        self.tableView?.scrollToRow(at: indexPath,
+                                    at: .bottom,
+                                    animated: true)
         
         super.didPressRightButton(sender)
         
@@ -103,8 +108,12 @@ class MessageViewController: SLKTextViewController {
         }
         
         let input = ["text": message]
-        let json = ["input": input]
+        var json: [String: Any] = ["input": input]
 
+        if let context = self.previousContext {
+            json["context"] = context.toJSON()
+        }
+        
         Alamofire
             .request(conversationURL + "\(workspaceIdentifier)/message?" + versionParameter,
                 method: .post,
@@ -112,20 +121,27 @@ class MessageViewController: SLKTextViewController {
                 encoding: JSONEncoding.default,
                 headers: ["Content-Type": "application/json"])
             .authenticate(user: username, password: password)
-            .responseJSON { response in
+            .responseJSON {
+                [weak self]
+                response in
                 if let json = response.result.value as? [String: Any],
                     let model = MessageResponse(json: json),
                     let output = model.output,
                     let text = output.text,
                     let firstText = text.first {
-                    let message = Message(username: "ChatBot", text: firstText)
+                    if let context = model.context {
+                        self?.previousContext = context
+                    }
+                    let message = Message(username: "ChatBot",
+                                          text: firstText,
+                                          profileImage: #imageLiteral(resourceName: "bot"))
                     let indexPath = IndexPath(row: 0, section: 0)
-                    self.tableView?.beginUpdates()
-                    self.messages.insert(message, at: 0)
-                    self.tableView?.insertRows(at: [indexPath],
+                    self?.tableView?.beginUpdates()
+                    self?.messages.insert(message, at: 0)
+                    self?.tableView?.insertRows(at: [indexPath],
                                                with: .bottom)
-                    self.tableView?.endUpdates()
-                    self.tableView?.scrollToRow(at: indexPath,
+                    self?.tableView?.endUpdates()
+                    self?.tableView?.scrollToRow(at: indexPath,
                                                 at: .bottom,
                                                 animated: true)
                 }

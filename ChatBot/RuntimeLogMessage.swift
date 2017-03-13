@@ -9,7 +9,7 @@
 import Foundation
 import Gloss
 
-struct RuntimeLogMessage {
+struct RuntimeLogMessage: Decodable {
     
     let level: String?
     let message: String?
