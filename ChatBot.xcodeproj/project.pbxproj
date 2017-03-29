@@ -25,6 +25,14 @@
 		5A0E2DCB1E68BE6900C62229 /* RuntimeSystemContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */; };
 		5A0E2DCD1E68BE8F00C62229 /* RuntimeDialogStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */; };
 		5A0E2DCF1E68BEE400C62229 /* RuntimeLogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */; };
+		5A935F2B1E8C6C4500E5F858 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A935F2A1E8C6C4500E5F858 /* DateFormatter+Extension.swift */; };
+		5A9525C21E8992EC00ECEC93 /* APIUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9525BF1E8992EC00ECEC93 /* APIUtility.swift */; };
+		5A9525C51E89930600ECEC93 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9525C31E89930600ECEC93 /* TripCell.swift */; };
+		5A9525C61E89930600ECEC93 /* TripCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9525C41E89930600ECEC93 /* TripCell.xib */; };
+		5A9525C81E89931800ECEC93 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9525C71E89931800ECEC93 /* TripsViewController.swift */; };
+		5A9525CA1E89931E00ECEC93 /* TripsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9525C91E89931E00ECEC93 /* TripsDataSource.swift */; };
+		5A9525CC1E89B85E00ECEC93 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9525CB1E89B85E00ECEC93 /* ButtonCell.swift */; };
+		5A9525CE1E89B89200ECEC93 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9525CD1E89B89200ECEC93 /* ButtonCell.xib */; };
 		CEACFD6DE05E454B00B7C910 /* Pods_ChatBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF3AD1DB90DE2793D8EB3B /* Pods_ChatBot.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +57,14 @@
 		5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeSystemContext.swift; sourceTree = "<group>"; };
 		5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeDialogStack.swift; sourceTree = "<group>"; };
 		5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeLogMessage.swift; sourceTree = "<group>"; };
+		5A935F2A1E8C6C4500E5F858 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		5A9525BF1E8992EC00ECEC93 /* APIUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIUtility.swift; sourceTree = "<group>"; };
+		5A9525C31E89930600ECEC93 /* TripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
+		5A9525C41E89930600ECEC93 /* TripCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripCell.xib; sourceTree = "<group>"; };
+		5A9525C71E89931800ECEC93 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
+		5A9525C91E89931E00ECEC93 /* TripsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsDataSource.swift; sourceTree = "<group>"; };
+		5A9525CB1E89B85E00ECEC93 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		5A9525CD1E89B89200ECEC93 /* ButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
 		80AF3AD1DB90DE2793D8EB3B /* Pods_ChatBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0BF0B76AC72411AA31B318 /* Pods-ChatBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatBot/Pods-ChatBot.debug.xcconfig"; sourceTree = "<group>"; };
 		FBC84770F87B0C7C4E28C19A /* Pods-ChatBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatBot/Pods-ChatBot.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,12 +123,10 @@
 			children = (
 				51DE1C901E77378400CFFDD1 /* Keys.swift */,
 				5A0E2DA11E686E2F00C62229 /* AppDelegate.swift */,
-				5A0E2DB31E686F1700C62229 /* MessageViewController.swift */,
-				5A0E2DBA1E687B8500C62229 /* Message.swift */,
-				5A0E2DB51E6876B300C62229 /* MessageCell.swift */,
-				5A0E2DB71E6876CF00C62229 /* MessageCell.xib */,
-				5A0E2DC91E68BD4800C62229 /* Watson Models */,
 				5A0E2DA51E686E2F00C62229 /* Main.storyboard */,
+				5A935F2C1E8C7A5800E5F858 /* Chat */,
+				5A935F2D1E8C7A6300E5F858 /* Trips */,
+				5A935F2E1E8C7A7000E5F858 /* Extensions */,
 				51DE1C921E77391500CFFDD1 /* Others */,
 			);
 			path = ChatBot;
@@ -132,6 +146,40 @@
 				5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */,
 			);
 			name = "Watson Models";
+			sourceTree = "<group>";
+		};
+		5A935F2C1E8C7A5800E5F858 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				5A0E2DC91E68BD4800C62229 /* Watson Models */,
+				5A0E2DB31E686F1700C62229 /* MessageViewController.swift */,
+				5A0E2DBA1E687B8500C62229 /* Message.swift */,
+				5A0E2DB51E6876B300C62229 /* MessageCell.swift */,
+				5A0E2DB71E6876CF00C62229 /* MessageCell.xib */,
+				5A9525CB1E89B85E00ECEC93 /* ButtonCell.swift */,
+				5A9525CD1E89B89200ECEC93 /* ButtonCell.xib */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		5A935F2D1E8C7A6300E5F858 /* Trips */ = {
+			isa = PBXGroup;
+			children = (
+				5A9525C31E89930600ECEC93 /* TripCell.swift */,
+				5A9525C41E89930600ECEC93 /* TripCell.xib */,
+				5A9525BF1E8992EC00ECEC93 /* APIUtility.swift */,
+				5A9525C71E89931800ECEC93 /* TripsViewController.swift */,
+				5A9525C91E89931E00ECEC93 /* TripsDataSource.swift */,
+			);
+			name = Trips;
+			sourceTree = "<group>";
+		};
+		5A935F2E1E8C7A7000E5F858 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A935F2A1E8C6C4500E5F858 /* DateFormatter+Extension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		A38DD90893F286C5E8C36A34 /* Pods */ = {
@@ -205,8 +253,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A9525C61E89930600ECEC93 /* TripCell.xib in Resources */,
 				5A0E2DAC1E686E2F00C62229 /* LaunchScreen.storyboard in Resources */,
 				5A0E2DB81E6876CF00C62229 /* MessageCell.xib in Resources */,
+				5A9525CE1E89B89200ECEC93 /* ButtonCell.xib in Resources */,
 				5A0E2DA91E686E2F00C62229 /* Assets.xcassets in Resources */,
 				5A0E2DA71E686E2F00C62229 /* Main.storyboard in Resources */,
 			);
@@ -267,19 +317,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A9525CC1E89B85E00ECEC93 /* ButtonCell.swift in Sources */,
 				5A0E2DC61E68BBAE00C62229 /* RuntimeContext.swift in Sources */,
 				5A0E2DCD1E68BE8F00C62229 /* RuntimeDialogStack.swift in Sources */,
 				5A0E2DBE1E68BA3200C62229 /* MessageResponse.swift in Sources */,
 				51DE1C911E77378400CFFDD1 /* Keys.swift in Sources */,
 				5A0E2DB61E6876B300C62229 /* MessageCell.swift in Sources */,
+				5A9525C21E8992EC00ECEC93 /* APIUtility.swift in Sources */,
 				5A0E2DBB1E687B8500C62229 /* Message.swift in Sources */,
 				5A0E2DC21E68BAC500C62229 /* RuntimeIntent.swift in Sources */,
 				5A0E2DB41E686F1700C62229 /* MessageViewController.swift in Sources */,
 				5A0E2DC01E68BA6B00C62229 /* MessageInput.swift in Sources */,
 				5A0E2DC81E68BC1300C62229 /* RuntimeOutput.swift in Sources */,
+				5A9525CA1E89931E00ECEC93 /* TripsDataSource.swift in Sources */,
 				5A0E2DA21E686E2F00C62229 /* AppDelegate.swift in Sources */,
+				5A9525C81E89931800ECEC93 /* TripsViewController.swift in Sources */,
 				5A0E2DC41E68BB5400C62229 /* RuntimeEntity.swift in Sources */,
 				5A0E2DCF1E68BEE400C62229 /* RuntimeLogMessage.swift in Sources */,
+				5A935F2B1E8C6C4500E5F858 /* DateFormatter+Extension.swift in Sources */,
+				5A9525C51E89930600ECEC93 /* TripCell.swift in Sources */,
 				5A0E2DCB1E68BE6900C62229 /* RuntimeSystemContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

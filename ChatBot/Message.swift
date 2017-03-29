@@ -8,10 +8,16 @@
 
 import UIKit
 
+enum MessageType {
+    case normal
+    case button
+}
+
 struct Message {
     
     let username: String
     let text: String
     let profileImage: UIImage
+    let type: MessageType
     
 }

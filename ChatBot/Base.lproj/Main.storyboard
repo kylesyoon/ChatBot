@@ -25,11 +25,49 @@
                     <navigationItem key="navigationItem" id="b0G-f2-yVN"/>
                     <connections>
                         <segue destination="wkk-pL-V3a" kind="presentation" identifier="signInSegue" id="7SJ-Vv-7I8"/>
+                        <segue destination="qg8-tm-h2e" kind="show" identifier="tripsSegue" id="OLw-Pr-d2X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="978" y="692"/>
+        </scene>
+        <!--Trips View Controller-->
+        <scene sceneID="9xy-8W-VZ9">
+            <objects>
+                <viewController id="qg8-tm-h2e" customClass="TripsViewController" customModule="ChatBot" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u9M-jX-SOu"/>
+                        <viewControllerLayoutGuide type="bottom" id="ODc-Tl-uoa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c7F-We-iB6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="W7J-r6-0AH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="qg8-tm-h2e" id="b5x-Lz-IsU"/>
+                                    <outlet property="delegate" destination="qg8-tm-h2e" id="dg1-2v-i36"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="W7J-r6-0AH" firstAttribute="leading" secondItem="c7F-We-iB6" secondAttribute="leading" id="YiH-8j-NDb"/>
+                            <constraint firstItem="W7J-r6-0AH" firstAttribute="top" secondItem="c7F-We-iB6" secondAttribute="top" id="aGZ-qS-kRT"/>
+                            <constraint firstAttribute="trailing" secondItem="W7J-r6-0AH" secondAttribute="trailing" id="bzP-yE-N1s"/>
+                            <constraint firstItem="ODc-Tl-uoa" firstAttribute="top" secondItem="W7J-r6-0AH" secondAttribute="bottom" id="xba-LA-nNk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="W7J-r6-0AH" id="jID-Au-Iva"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4tx-bT-3O7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976.79999999999995" y="1459.52023988006"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="mCr-rt-Ooo">
