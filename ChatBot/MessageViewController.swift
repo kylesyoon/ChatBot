@@ -10,6 +10,7 @@ import Foundation
 import SlackTextViewController
 import Alamofire
 import QPXExpressWrapper
+import CoreLocation
 
 class MessageViewController: SLKTextViewController {
     let tripsSegue = "tripsSegue"
@@ -19,6 +20,20 @@ class MessageViewController: SLKTextViewController {
     var isSignedIn: Bool = false
     var previousContext: RuntimeContext?
     var searchResults: SearchResults?
+    var locationManager = CLLocationManager()
+    var currentCoordinate: CLLocationCoordinate2D?
+    var currentAirportObject: [String: String]? {
+        didSet {
+            guard
+                let airport = currentAirportObject,
+                let name = airport["name"] else { return }
+            let airportMessage = Message(username: "ChatBot",
+                                         text: "Setting your departure airport to \(name).",
+                                         profileImage: #imageLiteral(resourceName: "bot"),
+                                         type: .normal)
+            insertMessage(message: airportMessage)
+        }
+    }
     
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: style)
@@ -28,13 +43,8 @@ class MessageViewController: SLKTextViewController {
         super.init(coder: decoder)
     }
     
-    override class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
-        return .plain
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView?.rowHeight = UITableViewAutomaticDimension
         tableView?.estimatedRowHeight = 50.0
         tableView?.separatorStyle = .none
@@ -43,7 +53,18 @@ class MessageViewController: SLKTextViewController {
         tableView?.register(UINib(nibName: String(describing: ButtonCell.self), bundle: nil),
                             forCellReuseIdentifier: String(describing: ButtonCell.self))
         
-        APIUtility.shared.queryWorkspaceIdentifier(success: nil, failure: nil)
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .authorizedWhenInUse:
+            break
+        default:
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        APIUtility.shared.queryWorkspaceIdentifier(success: {
+            APIUtility.shared.getNearbyAirport(success: self.nearbyAirportSuccessBlock())
+        },
+                                                   failure: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -53,6 +74,119 @@ class MessageViewController: SLKTextViewController {
             tripsViewController.searchResults = searchResults
         }
     }
+    
+    func nearbyAirportSuccessBlock() -> (MessageResponseSuccessCompletion) {
+        func findMatchedAirportName(from response: MessageResponse) {
+            guard
+                let output = response.output, 
+                let text = output.text, let firstText = text.first else {
+                return
+            }
+            let startMessage = Message(username: "ChatBot", text: firstText, profileImage: #imageLiteral(resourceName: "bot"), type: .normal)
+            insertMessage(message: startMessage)
+            
+            guard
+                let entities = response.entities,
+                let urlPath = Bundle.main.url(forResource: "airport_objects", withExtension: "json"),
+                let data = try? Data(contentsOf: urlPath),
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                let jsonArray = jsonObject as? [[String: String]] else {
+                    return
+            }
+            
+            for entity in entities {
+                if entity.entity == "name" {
+                    for airportJson in jsonArray {
+                        if airportJson["name"] == entity.value {
+                            self.currentAirportObject = airportJson
+                            break
+                        }
+                    }
+                    break
+                }
+            }
+        }
+        return findMatchedAirportName
+    }
+    
+    func messageResponseSuccessBlock() -> (MessageResponseSuccessCompletion) {
+        func processMessageResponse(response: MessageResponse) {
+            print(response)
+            guard
+                let output = response.output,
+                let text = output.text,
+                let firstText = text.first else {
+                    return
+            }
+            if let context = response.context {
+                self.previousContext = context
+            }
+            let message = Message(username: "ChatBot",
+                                  text: firstText,
+                                  profileImage: #imageLiteral(resourceName: "bot"),
+                                  type: .normal)
+            self.insertMessage(message: message)
+            guard
+                let entities = response.entities, entities.count == 2,
+                let originEntity = entities.first,
+                let origin = originEntity.value,
+                let destination = entities[1].value else {
+                    return
+            }
+            
+            let request = self.tripRequest(from: origin, to: destination)
+            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
+                                                     success: {
+                                                        [weak self]
+                                                        results in
+                                                        self?.searchResults = results
+                                                        let message = Message(username: "",
+                                                                              text: "",
+                                                                              profileImage: #imageLiteral(resourceName: "bot"),
+                                                                              type: .button)
+                                                        self?.insertMessage(message: message)
+                },
+                                                     failure: nil)
+        }
+        return processMessageResponse
+    }
+    
+    func tripRequest(from origin: String, to destination: String) -> TripRequest {
+        let departureTripSlice = TripRequestSlice(origin: origin,
+                                                  destination: destination,
+                                                  date: Date())
+        let requestPassengers = TripRequestPassengers(adultCount: 1,
+                                                      childCount: nil,
+                                                      infantInLapCount: nil,
+                                                      infantInSeatCount: nil,
+                                                      seniorCount: nil)
+        return TripRequest(passengers: requestPassengers,
+                           slice: [departureTripSlice],
+                           maxPrice: nil,
+                           saleCountry: nil,
+                           refundable: nil,
+                           solutions: nil)
+    }
+}
+
+// MARK: - Messaging
+
+extension MessageViewController {
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        switch message.type {
+        case .normal:
+            // do nothing
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .button:
+            tableView.deselectRow(at: indexPath, animated: true)
+            self.performSegue(withIdentifier: tripsSegue, sender: nil)
+        }
+    }
+    
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -87,16 +221,10 @@ class MessageViewController: SLKTextViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let message = messages[indexPath.row]
-        switch message.type {
-        case .normal:
-            // do nothing
-            tableView.deselectRow(at: indexPath, animated: true)
-        case .button:
-            tableView.deselectRow(at: indexPath, animated: true)
-            self.performSegue(withIdentifier: tripsSegue, sender: nil)
-        }
+    // MARK: - Other SLKTextViewController
+    
+    override class func tableViewStyle(for decoder: NSCoder) -> UITableViewStyle {
+        return .plain
     }
     
     /// Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
@@ -109,69 +237,10 @@ class MessageViewController: SLKTextViewController {
                               type: .normal)
         self.insertMessage(message: message)
         super.didPressRightButton(sender)
-        query(with: message.text)
-    }
-    
-    func query(with message: String) {
-        APIUtility.shared.sendMessage(message: message,
+        APIUtility.shared.sendMessage(message: message.text,
                                       withPreviousContext: self.previousContext,
-                                      success: {
-                                        [weak self]
-                                        messageReponse in
-                                        guard
-                                            let output = messageReponse.output,
-                                            let text = output.text,
-                                            let firstText = text.first else {
-                                                return
-                                        }
-                                        if let context = messageReponse.context {
-                                            self?.previousContext = context
-                                        }
-                                        let message = Message(username: "ChatBot",
-                                                              text: firstText,
-                                                              profileImage: #imageLiteral(resourceName: "bot"),
-                                                              type: .normal)
-                                        self?.insertMessage(message: message)
-                                        guard
-                                            let entities = messageReponse.entities, entities.count == 2,
-                                            let originEntity = entities.first,
-                                            let origin = originEntity.value,
-                                            let destination = entities[1].value,
-                                            let request = self?.tripRequest(from: origin, to: destination) else {
-                                                return
-                                        }
-                                        APIUtility.shared.searchTripsWithRequest(tripRequest: request,
-                                                                                 success: {
-                                                                                    [weak self]
-                                                                                    results in
-                                                                                    self?.searchResults = results
-                                                                                    let message = Message(username: "",
-                                                                                                          text: "",
-                                                                                                          profileImage: #imageLiteral(resourceName: "bot"),
-                                                                                                          type: .button)
-                                                                                    self?.insertMessage(message: message)
-                                            },
-                                                                                 failure: nil)
-            },
+                                      success: self.messageResponseSuccessBlock(),
                                       failure: nil)
-    }
-    
-    func tripRequest(from origin: String, to destination: String) -> TripRequest {
-        let departureTripSlice = TripRequestSlice(origin: origin,
-                                                  destination: destination,
-                                                  date: Date())
-        let requestPassengers = TripRequestPassengers(adultCount: 1,
-                                                      childCount: nil,
-                                                      infantInLapCount: nil,
-                                                      infantInSeatCount: nil,
-                                                      seniorCount: nil)
-        
-        return TripRequest(passengers: requestPassengers,
-                           slice: [departureTripSlice],
-                           maxPrice: nil,
-                           saleCountry: nil,
-                           refundable: nil,
-                           solutions: nil)
     }
     
     func insertMessage(message: Message) {
@@ -179,10 +248,10 @@ class MessageViewController: SLKTextViewController {
         self.tableView?.beginUpdates()
         self.messages.insert(message, at: 0)
         self.tableView?.insertRows(at: [indexPath],
-                                    with: .bottom)
+                                   with: .bottom)
         self.tableView?.endUpdates()
         self.tableView?.scrollToRow(at: indexPath,
-                                     at: .bottom,
-                                     animated: true)
+                                    at: .bottom,
+                                    animated: true)
     }
 }

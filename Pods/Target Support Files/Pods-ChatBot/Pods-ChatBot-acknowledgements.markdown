@@ -50,6 +50,14 @@ SOFTWARE.
 
 
 
+## GoogleMaps
+
+Copyright 2017 Google
+
+## GooglePlaces
+
+Copyright 2017 Google
+
 ## QPXExpressWrapper
 
 Copyright (c) 2016 Kyle Yoon <apps.yoon@gmail.com>

@@ -1,9 +1,10 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/Gloss" "$PODS_CONFIGURATION_BUILD_DIR/QPXExpressWrapper" "$PODS_CONFIGURATION_BUILD_DIR/SlackTextViewController"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/Gloss" "$PODS_CONFIGURATION_BUILD_DIR/QPXExpressWrapper" "$PODS_CONFIGURATION_BUILD_DIR/SlackTextViewController" "${PODS_ROOT}/GoogleMaps/Base/Frameworks" "${PODS_ROOT}/GooglePlaces/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/GoogleMaps" "${PODS_ROOT}/Headers/Public/GooglePlaces"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Gloss/Gloss.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/QPXExpressWrapper/QPXExpressWrapper.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SlackTextViewController/SlackTextViewController.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "Gloss" -framework "QPXExpressWrapper" -framework "SlackTextViewController"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Gloss/Gloss.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/QPXExpressWrapper/QPXExpressWrapper.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SlackTextViewController/SlackTextViewController.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/GoogleMaps" -isystem "${PODS_ROOT}/Headers/Public/GooglePlaces"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"z" -framework "Alamofire" -framework "CoreData" -framework "CoreGraphics" -framework "CoreLocation" -framework "Gloss" -framework "GoogleMapsBase" -framework "GooglePlaces" -framework "QPXExpressWrapper" -framework "QuartzCore" -framework "SlackTextViewController" -framework "SystemConfiguration" -framework "UIKit"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
