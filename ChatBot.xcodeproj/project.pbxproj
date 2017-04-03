@@ -25,6 +25,7 @@
 		5A0E2DCB1E68BE6900C62229 /* RuntimeSystemContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */; };
 		5A0E2DCD1E68BE8F00C62229 /* RuntimeDialogStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */; };
 		5A0E2DCF1E68BEE400C62229 /* RuntimeLogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */; };
+		5A1F23421E92893200DD9F9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A1F23411E92893200DD9F9E /* CoreLocation.framework */; };
 		5A306A951E8EFBA500155DAC /* airport_objects.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A306A941E8EFBA500155DAC /* airport_objects.json */; };
 		5A935F2B1E8C6C4500E5F858 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A935F2A1E8C6C4500E5F858 /* DateFormatter+Extension.swift */; };
 		5A9525C21E8992EC00ECEC93 /* APIUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9525BF1E8992EC00ECEC93 /* APIUtility.swift */; };
@@ -58,6 +59,7 @@
 		5A0E2DCA1E68BE6900C62229 /* RuntimeSystemContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeSystemContext.swift; sourceTree = "<group>"; };
 		5A0E2DCC1E68BE8F00C62229 /* RuntimeDialogStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeDialogStack.swift; sourceTree = "<group>"; };
 		5A0E2DCE1E68BEE400C62229 /* RuntimeLogMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeLogMessage.swift; sourceTree = "<group>"; };
+		5A1F23411E92893200DD9F9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5A306A941E8EFBA500155DAC /* airport_objects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = airport_objects.json; path = ../Data/airport_objects.json; sourceTree = "<group>"; };
 		5A935F2A1E8C6C4500E5F858 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		5A9525BF1E8992EC00ECEC93 /* APIUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIUtility.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A1F23421E92893200DD9F9E /* CoreLocation.framework in Frameworks */,
 				CEACFD6DE05E454B00B7C910 /* Pods_ChatBot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +90,7 @@
 		1F385FD537AE3D1BE5764925 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A1F23411E92893200DD9F9E /* CoreLocation.framework */,
 				80AF3AD1DB90DE2793D8EB3B /* Pods_ChatBot.framework */,
 			);
 			name = Frameworks;
