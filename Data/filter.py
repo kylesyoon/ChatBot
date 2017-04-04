@@ -13,9 +13,12 @@ with open("./airports.json", "r") as airports_json:
     # mapped object
     airportObjects = []
 
+    airportEntities = []
+
     for airport in airports_list:
         airportObject = {}
 
+        airportEntity = "airport,"
         airport = airport[:-2] if airport.endswith("\n") else airport
         components = airport.split("  ")
         code = components[0] #ORD
@@ -23,6 +26,7 @@ with open("./airports.json", "r") as airports_json:
         if codeEntity not in airportCodes:
             airportCodes.append(codeEntity)
         airportObject["code"] = code
+        airportEntity += code
 
         second_components = components[1].split("-", 1)
         second_components = map(lambda x: x.strip(), second_components)
@@ -32,6 +36,8 @@ with open("./airports.json", "r") as airports_json:
             if nameEntity not in airportNames:
                 airportNames.append(nameEntity)
             airportObject["name"] = name
+            airportEntity += ","
+            airportEntity += name
 
         address = second_components[0]
         comma_components = address.split(',')
@@ -42,6 +48,8 @@ with open("./airports.json", "r") as airports_json:
         if cityEntity not in cities:
             cities.append(cityEntity)
         airportObject["city"] = city
+        airportEntity += ","
+        airportEntity += city
 
         if len(comma_components) == 2:
             state = comma_components[1] #IL
@@ -49,8 +57,11 @@ with open("./airports.json", "r") as airports_json:
             if stateEntity not in states:
                 states.append(stateEntity)
             airportObject["state"] = state
+            airportEntity += ","
+            airportEntity += state
 
         airportObjects.append(airportObject)
+        airportEntities.append(airportEntity)
 
 with open("./codeEntities.csv", "w") as codeEntities:
     for codeEntity in airportCodes:
@@ -74,3 +85,8 @@ with open("./stateEntities.csv", "w") as stateEntities:
 
 with open('airport_objects.json', 'w') as outfile:
     json.dump(airportObjects, outfile)
+
+with open("./airportEntities.csv", "w") as airportEntitiesFile:
+    for entity in airportEntities:
+        airportEntitiesFile.write(entity)
+        airportEntitiesFile.write('\n')

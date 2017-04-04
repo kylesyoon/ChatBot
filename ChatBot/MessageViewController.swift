@@ -60,11 +60,8 @@ class MessageViewController: SLKTextViewController {
         default:
             locationManager.requestWhenInUseAuthorization()
         }
-        
-        APIUtility.shared.queryWorkspaceIdentifier(success: {
-            APIUtility.shared.getNearbyAirport(success: self.nearbyAirportSuccessBlock())
-        },
-                                                   failure: nil)
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -253,5 +250,40 @@ extension MessageViewController {
         self.tableView?.scrollToRow(at: indexPath,
                                     at: .bottom,
                                     animated: true)
+    }
+}
+
+extension MessageViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let firstLocation = locations.first else {
+            return
+        }
+        manager.stopUpdatingLocation()
+        
+        APIUtility.shared.queryWorkspaceIdentifier(success: {
+            APIUtility.shared.getNearbyAirports(latitude: firstLocation.coordinate.latitude,
+                                                longitude: firstLocation.coordinate.longitude,
+                                                success: { names in
+                                                    if let firstAirportName = names.first {
+                                                        APIUtility.shared.sendMessage(message: firstAirportName,
+                                                                                      withPreviousContext: nil,
+                                                                                      success: self.nearbyAirportSuccessBlock(),
+                                                                                      failure: {
+                                                                                        error in
+                                                                                        if let error = error {
+                                                                                            print(error)
+                                                                                        }
+                                                        })
+                                                    }
+                                                    
+            },
+                                                failure: { error in
+                                                    if let error = error {
+                                                        print(error)
+                                                    }
+                                                    
+            })
+        },
+                                                   failure: nil)
     }
 }
