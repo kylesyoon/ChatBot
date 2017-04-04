@@ -10,7 +10,6 @@ import Foundation
 import QPXExpressWrapper
 import Alamofire
 import Gloss
-import GooglePlaces
 
 typealias TripAPISuccessCompletion = (SearchResults) -> Void
 typealias TripAPIFailureCompletion = ((Error) -> Void)?
@@ -162,23 +161,6 @@ class APIUtility {
                                     failure(error)
                                 }
         })
-    }
-    
-    func getCurrentPlace(success: @escaping (GMSPlace) -> (), failure: ((Error?) -> ())?) {
-        GMSPlacesClient.shared().currentPlace { placeLikelihoodList, error in
-            guard
-                let list = placeLikelihoodList?.likelihoods,
-                let likelihood = list.first,
-                error == nil else {
-                    if
-                        let error = error,
-                        let failure = failure  {
-                        failure(error)
-                    }
-                    return
-            }
-            success(likelihood.place)
-        }
     }
     
     func getNearbyAirports(latitude: Double,

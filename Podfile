@@ -6,6 +6,5 @@ target 'ChatBot' do
   pod 'Alamofire'
   pod 'Gloss'
   pod 'QPXExpressWrapper'
-  pod 'GooglePlaces'
   
 end

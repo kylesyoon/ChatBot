@@ -255,35 +255,36 @@ extension MessageViewController {
 
 extension MessageViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let firstLocation = locations.first else {
-            return
-        }
         manager.stopUpdatingLocation()
-        
-        APIUtility.shared.queryWorkspaceIdentifier(success: {
-            APIUtility.shared.getNearbyAirports(latitude: firstLocation.coordinate.latitude,
-                                                longitude: firstLocation.coordinate.longitude,
-                                                success: { names in
-                                                    if let firstAirportName = names.first {
-                                                        APIUtility.shared.sendMessage(message: firstAirportName,
-                                                                                      withPreviousContext: nil,
-                                                                                      success: self.nearbyAirportSuccessBlock(),
-                                                                                      failure: {
-                                                                                        error in
-                                                                                        if let error = error {
-                                                                                            print(error)
-                                                                                        }
-                                                        })
-                                                    }
-                                                    
+        guard let firstLocation = locations.first else { return }
+        if self.currentCoordinate == nil {
+            self.currentCoordinate = firstLocation.coordinate
+            APIUtility.shared.queryWorkspaceIdentifier(success: {
+                APIUtility.shared.getNearbyAirports(latitude: firstLocation.coordinate.latitude,
+                                                    longitude: firstLocation.coordinate.longitude,
+                                                    success: { names in
+                                                        if let firstAirportName = names.first {
+                                                            APIUtility.shared.sendMessage(message: firstAirportName,
+                                                                                          withPreviousContext: nil,
+                                                                                          success: self.nearbyAirportSuccessBlock(),
+                                                                                          failure: {
+                                                                                            error in
+                                                                                            if let error = error {
+                                                                                                print(error)
+                                                                                            }
+                                                            })
+                                                        }
+                                                        
+                },
+                                                    failure: { error in
+                                                        if let error = error {
+                                                            print(error)
+                                                        }
+                                                        
+                })
             },
-                                                failure: { error in
-                                                    if let error = error {
-                                                        print(error)
-                                                    }
-                                                    
-            })
-        },
-                                                   failure: nil)
+                                                       failure: nil)
+        }
+
     }
 }
