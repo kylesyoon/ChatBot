@@ -16,16 +16,16 @@ class MessageViewController: SLKTextViewController {
     let tripsSegue = "tripsSegue"
     
     var messages = [Message]()
-    var workspaceIdentifier: String?
-    var isSignedIn: Bool = false
+    var allAirports: [[String: String]]?
+    
     var previousContext: RuntimeContext?
     var searchResults: SearchResults?
     var locationManager = CLLocationManager()
     var currentCoordinate: CLLocationCoordinate2D?
-    var currentAirportObject: [String: String]? {
+    var originAirport: [String: String]? {
         didSet {
             guard
-                let airport = currentAirportObject,
+                let airport = originAirport,
                 let name = airport["name"] else { return }
             let airportMessage = Message(username: "ChatBot",
                                          text: "Setting your departure airport to \(name).",
@@ -75,13 +75,18 @@ class MessageViewController: SLKTextViewController {
     func nearbyAirportSuccessBlock() -> (MessageResponseSuccessCompletion) {
         func findMatchedAirportName(from response: MessageResponse) {
             guard
+                let context = response.context,
                 let output = response.output, 
-                let text = output.text, let firstText = text.first else {
+                let text = output.text,
+                let firstText = text.first else {
                 return
             }
+            // pass context along
+            self.previousContext = context
+            // output what bot said
             let startMessage = Message(username: "ChatBot", text: firstText, profileImage: #imageLiteral(resourceName: "bot"), type: .normal)
             insertMessage(message: startMessage)
-            
+            // find the airport that bot figured out
             guard
                 let entities = response.entities,
                 let urlPath = Bundle.main.url(forResource: "airport_objects", withExtension: "json"),
@@ -90,12 +95,13 @@ class MessageViewController: SLKTextViewController {
                 let jsonArray = jsonObject as? [[String: String]] else {
                     return
             }
-            
+            self.allAirports = jsonArray
+            // map it to our airport object database
             for entity in entities {
                 if entity.entity == "name" {
                     for airportJson in jsonArray {
                         if airportJson["name"] == entity.value {
-                            self.currentAirportObject = airportJson
+                            self.originAirport = airportJson
                             break
                         }
                     }
@@ -108,42 +114,73 @@ class MessageViewController: SLKTextViewController {
     
     func messageResponseSuccessBlock() -> (MessageResponseSuccessCompletion) {
         func processMessageResponse(response: MessageResponse) {
-            print(response)
             guard
+                let context = response.context,
                 let output = response.output,
                 let text = output.text,
-                let firstText = text.first else {
+                var firstText = text.first else {
                     return
             }
-            if let context = response.context {
-                self.previousContext = context
+            self.previousContext = context
+            guard
+                let entities = response.entities,
+                let allAirports = self.allAirports else { return }
+            for entity in entities {
+                guard
+                    let type = entity.entity,
+                    let value = entity.value else { break }
+                switch type {
+                case Entity.airport.rawValue:
+                    if let matchedAirport = (allAirports.filter { $0["code"] == value }).first {
+                        if let name = matchedAirport["name"] {
+                            firstText = firstText.replacingOccurrences(of: value, with: "\n\(name)")
+                        }
+                    }
+                case Entity.code.rawValue:
+                    if let matchedAirport = (allAirports.filter { $0["code"] == value }).first {
+                        if let name = matchedAirport["name"] {
+                            firstText = firstText.replacingOccurrences(of: value, with: "\n\(name)")
+                        }
+                    }
+                case Entity.name.rawValue:
+                    fallthrough
+                case Entity.city.rawValue:
+                    fallthrough
+                case Entity.state.rawValue:
+                    fallthrough
+                default:
+                    // something else
+                    break
+                }
             }
+            
             let message = Message(username: "ChatBot",
                                   text: firstText,
                                   profileImage: #imageLiteral(resourceName: "bot"),
                                   type: .normal)
             self.insertMessage(message: message)
-            guard
-                let entities = response.entities, entities.count == 2,
-                let originEntity = entities.first,
-                let origin = originEntity.value,
-                let destination = entities[1].value else {
-                    return
-            }
             
-            let request = self.tripRequest(from: origin, to: destination)
-            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
-                                                     success: {
-                                                        [weak self]
-                                                        results in
-                                                        self?.searchResults = results
-                                                        let message = Message(username: "",
-                                                                              text: "",
-                                                                              profileImage: #imageLiteral(resourceName: "bot"),
-                                                                              type: .button)
-                                                        self?.insertMessage(message: message)
-                },
-                                                     failure: nil)
+//            guard
+//                let entities = response.entities,
+//                entities.count == 2,
+//                let originEntity = entities.first,
+//                let origin = originEntity.value,
+//                let destination = entities[1].value else {
+//                    return
+//            }
+//            let request = self.tripRequest(from: origin, to: destination)
+//            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
+//                                                     success: {
+//                                                        [weak self]
+//                                                        results in
+//                                                        self?.searchResults = results
+//                                                        let message = Message(username: "",
+//                                                                              text: "",
+//                                                                              profileImage: #imageLiteral(resourceName: "bot"),
+//                                                                              type: .button)
+//                                                        self?.insertMessage(message: message)
+//                },
+//                                                     failure: nil)
         }
         return processMessageResponse
     }
@@ -286,5 +323,11 @@ extension MessageViewController: CLLocationManagerDelegate {
                                                        failure: nil)
         }
 
+    }
+}
+
+extension String {
+    func replaceOccurancesOfAirportCodeWithNames(for airports: [RuntimeEntity]) {
+        
     }
 }

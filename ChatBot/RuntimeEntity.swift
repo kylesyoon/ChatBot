@@ -9,6 +9,14 @@
 import Foundation
 import Gloss
 
+enum Entity: String {
+    case airport
+    case code
+    case name
+    case city
+    case state
+}
+
 struct RuntimeEntity: Decodable {
     
     let entity: String?
