@@ -125,6 +125,8 @@ class MessageViewController: SLKTextViewController {
             guard
                 let entities = response.entities,
                 let allAirports = self.allAirports else { return }
+            
+            // send message replacing codes with names
             for entity in entities {
                 guard
                     let type = entity.entity,
@@ -159,36 +161,44 @@ class MessageViewController: SLKTextViewController {
                                   profileImage: #imageLiteral(resourceName: "bot"),
                                   type: .normal)
             self.insertMessage(message: message)
+
+            var airportEntity: RuntimeEntity?
+            var dateEntity: RuntimeEntity?
+            for entity in entities {
+                if let airport = entity.entity, airport == "airport" {
+                    airportEntity = entity
+                }
+                else if let date = entity.entity, date == "sys-date" {
+                    dateEntity = entity
+                }
+            }
             
-//            guard
-//                let entities = response.entities,
-//                entities.count == 2,
-//                let originEntity = entities.first,
-//                let origin = originEntity.value,
-//                let destination = entities[1].value else {
-//                    return
-//            }
-//            let request = self.tripRequest(from: origin, to: destination)
-//            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
-//                                                     success: {
-//                                                        [weak self]
-//                                                        results in
-//                                                        self?.searchResults = results
-//                                                        let message = Message(username: "",
-//                                                                              text: "",
-//                                                                              profileImage: #imageLiteral(resourceName: "bot"),
-//                                                                              type: .button)
-//                                                        self?.insertMessage(message: message)
-//                },
-//                                                     failure: nil)
+            guard let airport = airportEntity?.value, let dateString = dateEntity?.value else { return }
+            
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard let date = dateFormatter.date(from: dateString), let origin = self.originAirport?["code"] else { return }
+            
+            let request = self.tripRequest(from: origin, to: airport, on: date)
+            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
+                                                     success: {
+                                                        [weak self]
+                                                        results in
+                                                        self?.searchResults = results
+                                                        let message = Message(username: "",
+                                                                              text: "",
+                                                                              profileImage: #imageLiteral(resourceName: "bot"),
+                                                                              type: .button)
+                                                        self?.insertMessage(message: message)
+                },
+                                                     failure: nil)
         }
         return processMessageResponse
     }
     
-    func tripRequest(from origin: String, to destination: String) -> TripRequest {
+    func tripRequest(from origin: String, to destination: String, on date: Date) -> TripRequest {
         let departureTripSlice = TripRequestSlice(origin: origin,
                                                   destination: destination,
-                                                  date: Date())
+                                                  date: date)
         let requestPassengers = TripRequestPassengers(adultCount: 1,
                                                       childCount: nil,
                                                       infantInLapCount: nil,
