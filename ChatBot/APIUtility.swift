@@ -10,7 +10,6 @@ import Foundation
 import QPXExpressWrapper
 import Alamofire
 import Gloss
-import GooglePlaces
 
 typealias TripAPISuccessCompletion = (SearchResults) -> Void
 typealias TripAPIFailureCompletion = ((Error) -> Void)?
@@ -127,65 +126,11 @@ class APIUtility {
         }
     }
     
-    // MARK: - Google Places
-    
-    func getNearbyAirport(success: @escaping (MessageResponse) -> (),
-                          failure: ((Error?) -> ())? = nil) {
-        self.getCurrentPlace(success: {
-            place in
-            self.getNearbyAirports(latitude: place.coordinate.latitude,
-                                   longitude: place.coordinate.longitude,
-                                   success: { names in
-                                    if let firstAirportName = names.first {
-                                        self.sendMessage(message: firstAirportName,
-                                                         withPreviousContext: nil,
-                                                         success: { response in
-                                                            success(response)
-                                        },
-                                                         failure: { error in
-                                                            if let failure = failure {
-                                                                failure(error)
-                                                            }
-                                                            
-                                        })
-                                    }
-                                    
-            },
-                                   failure: { error in
-                                    if let failure = failure {
-                                        failure(error)
-                                    }
-            })
-        },
-                             failure: { error in
-                                if let failure = failure {
-                                    failure(error)
-                                }
-        })
-    }
-    
-    func getCurrentPlace(success: @escaping (GMSPlace) -> (), failure: ((Error?) -> ())?) {
-        GMSPlacesClient.shared().currentPlace { placeLikelihoodList, error in
-            guard
-                let list = placeLikelihoodList?.likelihoods,
-                let likelihood = list.first,
-                error == nil else {
-                    if
-                        let error = error,
-                        let failure = failure  {
-                        failure(error)
-                    }
-                    return
-            }
-            success(likelihood.place)
-        }
-    }
-    
     func getNearbyAirports(latitude: Double,
                            longitude: Double, 
                            success: @escaping ([String]) -> (),
                            failure: @escaping (Error?) -> ()) {
-        let placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDT7P8WPAV2d_4MEh6weFgm_hkIaUqVtgs&location=\(latitude),\(longitude)&radius=35000&type=airport"
+        let placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=\(GooglePlacesSearchAPIKey)&location=\(latitude),\(longitude)&radius=35000&type=airport"
         Alamofire.request(placesURL,
                           method: .post,
                           encoding: JSONEncoding.default,

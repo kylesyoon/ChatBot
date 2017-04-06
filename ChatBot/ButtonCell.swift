@@ -10,4 +10,6 @@ import UIKit
 
 class ButtonCell: UITableViewCell {
     
+    @IBOutlet var titleLabel: UILabel!
+    
 }
