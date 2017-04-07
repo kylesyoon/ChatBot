@@ -34,11 +34,6 @@ internal class TripsViewController: UIViewController {
             self.tripsDataSource = TripsDataSource(searchResults: searchResults)
             self.tableView.reloadData()
         }
-//        self.completeButton.isHidden = true
-    }
-    
-    @IBAction func didTapComplete(sender: AnyObject) {
-        
     }
 }
 
@@ -70,15 +65,5 @@ extension TripsViewController: UITableViewDataSource {
         cell.configure(with: tripCellData)
         
         return cell
-    }
-}
-
-extension TripsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-//        if
-//            let dataSource = self.tripsDataSource,
-//            let searchResults = self.searchResults {
-//        }
     }
 }

@@ -80,7 +80,11 @@ class TripsDataSource {
                 return slice[0].segment! == selectedSlice[0].segment!
             }
             let departureTripCellData = sameDepartureTripOptions.map { tripOption -> (FlightViewModel) in
-                if let airlineNames = self.fullCarrierNamesTripOption(tripOption: tripOption) {
+                if
+                    let carriers = self.searchResults.trips?.data?.carrier,
+                    let airlineNames = TripsDataSource.fullCarrierNamesTripOption(tripOption: tripOption,
+                                                                                  allCarriers: carriers,
+                                                                                  currentSliceIndex: self.currentSliceIndex) {
                     return FlightViewModel(tripOption: tripOption,
                                            airlineNames: airlineNames,
                                            sliceIndex: self.currentSliceIndex)
@@ -129,29 +133,41 @@ class TripsDataSource {
                 }
                 return slice.segment! == tripOptionSlice.segment!
             }
-            if duplicateTripOptions.isEmpty, let carrierNames = self.fullCarrierNamesTripOption(tripOption: tripOption) {
-                tripCellDataToDisplay.append(FlightViewModel(tripOption: tripOption, airlineNames: carrierNames, sliceIndex: 0))
+            if
+                duplicateTripOptions.isEmpty,
+                let carriers = self.searchResults.trips?.data?.carrier,
+                let carrierNames = TripsDataSource.fullCarrierNamesTripOption(tripOption: tripOption,
+                                                                              allCarriers: carriers,
+                                                                              currentSliceIndex: self.currentSliceIndex) {
+                tripCellDataToDisplay.append(FlightViewModel(tripOption: tripOption,
+                                                             airlineNames: carrierNames,
+                                                             sliceIndex: 0))
             }
         }
         
         return [tripCellDataToDisplay]
     }
-    
-    /**
-     Get's the carrier code from the trip option and finds the airline name in the search results trip data.
-     
-     - parameter tripOption: The trip option with carrier codes of interest
-     
-     - returns: The carrier names
-     */
-    private func fullCarrierNamesTripOption(tripOption: TripOption) -> [String]? {
-        guard let slice = tripOption.slice, let segment = slice[self.currentSliceIndex].segment else { return nil }
+
+    /// Returns airline names for the trip option matched from all the carriers in the search results data.
+    ///
+    /// - Parameters:
+    ///   - tripOption: the trip option of interest
+    ///   - allCarriers: all carriers for the current search results
+    ///   - currentSliceIndex: the slice of interest
+    /// - Returns: airline names for the trip option
+    internal static func fullCarrierNamesTripOption(tripOption: TripOption,
+                                                    allCarriers: [TripsDataCarrier],
+                                                    currentSliceIndex: Int) -> [String]? {
+        guard
+            let slice = tripOption.slice,
+            let segment = slice[currentSliceIndex].segment
+            else {
+                return nil
+        }
         let airlineCarrierCodes = segment.map { $0.flight?.carrier }
         var carriers = [TripsDataCarrier]()
         for code in airlineCarrierCodes {
-            if let carrier = self.searchResults.trips?.data?.carrier {
-                carriers.append(contentsOf: carrier.filter { $0.code! == code! })
-            }
+            carriers.append(contentsOf: allCarriers.filter { $0.code! == code! })
         }
         var uniqueCarrierNames = [String]()
         for carrier in carriers {

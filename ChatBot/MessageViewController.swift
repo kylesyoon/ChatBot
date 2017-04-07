@@ -15,7 +15,7 @@ import CoreLocation
 class MessageViewController: SLKTextViewController {
     let tripsSegue = "tripsSegue"
     
-    var messages = [Message]()
+    var messages = [Any]()
     var allAirports: [[String: String]]?
     
     var previousContext: RuntimeContext?
@@ -34,6 +34,8 @@ class MessageViewController: SLKTextViewController {
             insertMessage(message: airportMessage)
         }
     }
+    var destinationAirport: [String: String]?
+    var filteredFlight: FlightViewModel?
     
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: style)
@@ -46,12 +48,14 @@ class MessageViewController: SLKTextViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.rowHeight = UITableViewAutomaticDimension
-        tableView?.estimatedRowHeight = 50.0
+        tableView?.estimatedRowHeight = 134.0
         tableView?.separatorStyle = .none
         tableView?.register(UINib(nibName: String(describing: MessageCell.self), bundle: nil),
                             forCellReuseIdentifier: String(describing: MessageCell.self))
         tableView?.register(UINib(nibName: String(describing: ButtonCell.self), bundle: nil),
                             forCellReuseIdentifier: String(describing: ButtonCell.self))
+        tableView?.register(UINib(nibName: String(describing: TripCell.self), bundle: nil),
+                            forCellReuseIdentifier: String(describing: TripCell.self))
         
         let status = CLLocationManager.authorizationStatus()
         switch status {
@@ -84,7 +88,10 @@ class MessageViewController: SLKTextViewController {
             // pass context along
             self.previousContext = context
             // output what bot said
-            let startMessage = Message(username: "ChatBot", text: firstText, profileImage: #imageLiteral(resourceName: "bot"), type: .normal)
+            let startMessage = Message(username: "ChatBot",
+                                       text: firstText,
+                                       profileImage: #imageLiteral(resourceName: "bot"),
+                                       type: .normal)
             insertMessage(message: startMessage)
             // find the airport that bot figured out
             guard
@@ -118,79 +125,113 @@ class MessageViewController: SLKTextViewController {
                 let context = response.context,
                 let output = response.output,
                 let text = output.text,
-                var firstText = text.first else {
+                let firstText = text.first else {
                     return
             }
             self.previousContext = context
             guard
                 let entities = response.entities,
-                let allAirports = self.allAirports else { return }
-            
-            // send message replacing codes with names
-            for entity in entities {
-                guard
-                    let type = entity.entity,
-                    let value = entity.value else { break }
-                switch type {
-                case Entity.airport.rawValue:
-                    if let matchedAirport = (allAirports.filter { $0["code"] == value }).first {
-                        if let name = matchedAirport["name"] {
-                            firstText = firstText.replacingOccurrences(of: value, with: "\n\(name)")
-                        }
-                    }
-                case Entity.code.rawValue:
-                    if let matchedAirport = (allAirports.filter { $0["code"] == value }).first {
-                        if let name = matchedAirport["name"] {
-                            firstText = firstText.replacingOccurrences(of: value, with: "\n\(name)")
-                        }
-                    }
-                case Entity.name.rawValue:
-                    fallthrough
-                case Entity.city.rawValue:
-                    fallthrough
-                case Entity.state.rawValue:
-                    fallthrough
-                default:
-                    // something else
-                    break
-                }
+                let messageText = self.responseOutputWithByReplacingCodes(output: firstText, with: entities) else {
+                    return
             }
-            
+            // Show dialog output
             let message = Message(username: "ChatBot",
-                                  text: firstText,
+                                  text: messageText,
                                   profileImage: #imageLiteral(resourceName: "bot"),
                                   type: .normal)
             self.insertMessage(message: message)
 
-            var airportEntity: RuntimeEntity?
-            var dateEntity: RuntimeEntity?
-            for entity in entities {
-                if let airport = entity.entity, airport == "airport" {
-                    airportEntity = entity
+            if let intent = response.intents?.first, intent.intent == "filter" {
+                self.filterIntentRecognized(for: response)
+            }
+            else if let intent = response.intents?.first, intent.intent == "modify" {
+                self.modifyIntentRecognized(for: response)
+            }
+            else {
+                // booking intent
+                var airportEntity: RuntimeEntity?
+                var dateEntity: RuntimeEntity?
+                for entity in entities {
+                    if let airport = entity.entity, airport == "airport" {
+                        airportEntity = entity
+                    }
+                    else if let date = entity.entity, date == "sys-date" {
+                        dateEntity = entity
+                    }
                 }
-                else if let date = entity.entity, date == "sys-date" {
-                    dateEntity = entity
+                if
+                    let airport = airportEntity?.value,
+                    let dateString = dateEntity?.value {
+                    // Got destination and date
+                    guard let allAirports = self.allAirports else { return }
+                    
+                    for airportDict in allAirports {
+                        if airportDict["code"] == airport {
+                            self.destinationAirport = airportDict
+                            break
+                        }
+                    }
+                    
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    guard
+                        let date = dateFormatter.date(from: dateString),
+                        let origin = self.originAirport?["code"] else {
+                            return
+                    }
+                    
+                    let request = self.tripRequest(from: origin,
+                                                   to: airport,
+                                                   on: date)
+                    APIUtility.shared.searchTripsWithRequest(tripRequest: request,
+                                                             success: {
+                                                                [weak self]
+                                                                results in
+                                                                self?.searchResults = results
+                                                                let message = Message(username: "",
+                                                                                      text: "",
+                                                                                      profileImage: #imageLiteral(resourceName: "bot"),
+                                                                                      type: .button)
+                                                                self?.insertMessage(message: message)
+                        },
+                                                             failure: nil)
+                }
+                else if let airport = airportEntity?.value {
+                    // just got airport
+                    guard let allAirports = self.allAirports else { return }
+                    for airportDict in allAirports {
+                        if airportDict["code"] == airport {
+                            self.destinationAirport = airportDict
+                            break
+                        }
+                    }
+                }
+                else if let dateString = dateEntity?.value {
+                    if let dest = self.destinationAirport?["code"] {
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        guard
+                            let date = dateFormatter.date(from: dateString),
+                            let origin = self.originAirport?["code"] else {
+                                return
+                        }
+                        
+                        let request = self.tripRequest(from: origin,
+                                                       to: dest,
+                                                       on: date)
+                        APIUtility.shared.searchTripsWithRequest(tripRequest: request,
+                                                                 success: {
+                                                                    [weak self]
+                                                                    results in
+                                                                    self?.searchResults = results
+                                                                    let message = Message(username: "",
+                                                                                          text: "",
+                                                                                          profileImage: #imageLiteral(resourceName: "bot"),
+                                                                                          type: .button)
+                                                                    self?.insertMessage(message: message)
+                            },
+                                                                 failure: nil)
+                    }
                 }
             }
-            
-            guard let airport = airportEntity?.value, let dateString = dateEntity?.value else { return }
-            
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            guard let date = dateFormatter.date(from: dateString), let origin = self.originAirport?["code"] else { return }
-            
-            let request = self.tripRequest(from: origin, to: airport, on: date)
-            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
-                                                     success: {
-                                                        [weak self]
-                                                        results in
-                                                        self?.searchResults = results
-                                                        let message = Message(username: "",
-                                                                              text: "",
-                                                                              profileImage: #imageLiteral(resourceName: "bot"),
-                                                                              type: .button)
-                                                        self?.insertMessage(message: message)
-                },
-                                                     failure: nil)
         }
         return processMessageResponse
     }
@@ -211,6 +252,219 @@ class MessageViewController: SLKTextViewController {
                            refundable: nil,
                            solutions: nil)
     }
+    
+    func responseOutputWithByReplacingCodes(output: String, with entities: [RuntimeEntity]) -> String? {
+        var output = output
+        guard let allAirports = self.allAirports else { return output }
+        for entity in entities {
+            guard
+                let type = entity.entity,
+                let value = entity.value else { break }
+            switch type {
+            case Entity.airport.rawValue:
+                if let matchedAirport = (allAirports.filter { $0["code"] == value }).first {
+                    if let name = matchedAirport["name"] {
+                        output = output.replacingOccurrences(of: value, with: "\n\(name)")
+                    }
+                }
+            case Entity.code.rawValue:
+                if let matchedAirport = (allAirports.filter { $0["code"] == value }).first {
+                    if let name = matchedAirport["name"] {
+                        output = output.replacingOccurrences(of: value, with: "\n\(name)")
+                    }
+                }
+            case Entity.name.rawValue:
+                fallthrough
+            case Entity.city.rawValue:
+                fallthrough
+            case Entity.state.rawValue:
+                fallthrough
+            default:
+                // something else
+                break
+            }
+        }
+        return output
+    }
+    
+    func filterIntentRecognized(for response: MessageResponse) {
+        guard
+            let intent = response.intents?.first, 
+            intent.intent == "filter",
+            let entities = response.entities else {
+            // should already be checked but safeguarding
+            return
+        }
+        
+        var filterEntityOptional: RuntimeEntity?
+        for entity in entities {
+            if entity.entity == "filter" {
+                filterEntityOptional = entity
+            }
+        }
+        
+        guard
+            let filterEntity = filterEntityOptional,
+            let value = filterEntity.value,
+            let flights = self.searchResults else {
+            // should have one filter entity
+            return
+        }
+        
+        if value == "cheapest" {
+            self.showCheapestFlightOptions(for: flights)
+        }
+        else if value == "shortest" {
+            self.showShortestFlightOptions(for: flights)
+        }
+    }
+    
+    func modifyIntentRecognized(for response: MessageResponse) {
+        guard
+            let intent = response.intents?.first,
+            intent.intent == "modify",
+            let entities = response.entities else {
+            return
+        }
+        
+        var dateEntityOptional: RuntimeEntity?
+        
+        for entity in entities {
+            if entity.entity == "sys-date" {
+                dateEntityOptional = entity
+            }
+        }
+        
+        if
+            let dateEntity = dateEntityOptional,
+            let dateString = dateEntity.value,
+            let dest = self.destinationAirport?["code"] {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard
+                let date = dateFormatter.date(from: dateString),
+                let origin = self.originAirport?["code"] else {
+                    return
+            }
+            
+            let request = self.tripRequest(from: origin,
+                                           to: dest,
+                                           on: date)
+            APIUtility.shared.searchTripsWithRequest(tripRequest: request,
+                                                     success: {
+                                                        [weak self]
+                                                        results in
+                                                        self?.searchResults = results
+                                                        let message = Message(username: "",
+                                                                              text: "",
+                                                                              profileImage: #imageLiteral(resourceName: "bot"),
+                                                                              type: .button)
+                                                        self?.insertMessage(message: message)
+                },
+                                                     failure: nil)
+        }
+    }
+    
+    func showCheapestFlightOptions(for searchResults: SearchResults) {
+        guard let tripOptions = self.searchResults?.trips?.tripOptions else {
+            return
+        }
+        let sortedAscSaleTotal = tripOptions.sorted(by: { tripOptionA, tripOptionB -> Bool in
+            guard
+                let saleTotalA = tripOptionA.saleTotal,
+                let saleTotalB = tripOptionB.saleTotal else {
+                    return false
+            }
+            let removedUnitA = saleTotalA.replacingOccurrences(of: "USD", with: "")
+            let removedUnitB = saleTotalB.replacingOccurrences(of: "USD", with: "")
+            
+            guard let doubleTotalA = Double(removedUnitA), let doubleTotalB = Double(removedUnitB) else {
+                return false
+            }
+            
+            return doubleTotalA < doubleTotalB
+        })
+        
+        guard let cheapestOption = sortedAscSaleTotal.first else {
+            return
+        }
+        
+        var cheapestOptions = [TripOption]()
+        for tripOption in sortedAscSaleTotal {
+            if tripOption.saleTotal == cheapestOption.saleTotal {
+                cheapestOptions.append(tripOption)
+            }
+            else {
+                // it's sorted so the first one that isn't the same break the loop
+                break
+            }
+        }
+        if
+            let allCarriers = searchResults.trips?.data?.carrier {
+            var cheapFlights = [FlightViewModel]()
+            var indexPaths = [IndexPath]()
+            for (index, cheapOption) in cheapestOptions.enumerated() {
+                if let airlines = TripsDataSource.fullCarrierNamesTripOption(tripOption: cheapOption,
+                                                                             allCarriers: allCarriers,
+                                                                             currentSliceIndex: 0){
+                    let cheapFlight = FlightViewModel(cheapOption, airlines, 0)
+                    cheapFlights.append(cheapFlight)
+                    indexPaths.append(IndexPath(row: index, section: 0))
+                }
+            }
+            self.tableView?.beginUpdates()
+            self.messages = cheapFlights + self.messages
+            self.tableView?.insertRows(at: indexPaths,
+                                       with: .bottom)
+            self.tableView?.endUpdates()
+            self.tableView?.scrollToRow(at: IndexPath(row: 0, section: 0),
+                                        at: .bottom,
+                                        animated: true)
+        }
+    }
+    
+    func showShortestFlightOptions(for searchResults: SearchResults) {
+        // Get difference
+        guard let tripOptions = self.searchResults?.trips?.tripOptions else {
+            return
+        }
+        
+        let sortedTotalDurationAsc = tripOptions.sorted { optionA, optionB -> Bool in
+            // Get first slice, first segment, first leg departure time
+            // Get last slice, last segment, last leg arrival time
+            guard
+                let departureA = optionA.slice?.first?.segment?.first?.leg?.first?.departureTime,
+                let departureB = optionB.slice?.first?.segment?.first?.leg?.first?.departureTime,
+                let arrivalA = optionA.slice?.last?.segment?.last?.leg?.last?.arrivalTime,
+                let arrivalB = optionB.slice?.last?.segment?.last?.leg?.last?.arrivalTime else {
+                return false
+            }
+            // difference
+            let differenceA = arrivalA.timeIntervalSince(departureA)
+            let differenceB = arrivalB.timeIntervalSince(departureB)
+            // compare
+            return differenceA < differenceB
+        }
+        
+        guard
+            let allCarriers = searchResults.trips?.data?.carrier,
+            let shortestOption = sortedTotalDurationAsc.first,
+            let shortestOptionAirlineNames = TripsDataSource.fullCarrierNamesTripOption(tripOption: shortestOption,
+                                                                                        allCarriers: allCarriers,
+                                                                                        currentSliceIndex: 0) else {
+                                                                                            return
+        }
+        
+        let shortestFlightViewModel = FlightViewModel(shortestOption, shortestOptionAirlineNames, 0)
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView?.beginUpdates()
+        self.messages.insert(shortestFlightViewModel, at: 0)
+        self.tableView?.insertRows(at: [indexPath],
+                                   with: .bottom)
+        self.tableView?.endUpdates()
+        self.tableView?.scrollToRow(at: indexPath,
+                                    at: .bottom,
+                                    animated: true)
+    }
 }
 
 // MARK: - Messaging
@@ -220,13 +474,15 @@ extension MessageViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let message = messages[indexPath.row]
-        switch message.type {
-        case .normal:
-            // do nothing
-            tableView.deselectRow(at: indexPath, animated: true)
-        case .button:
-            tableView.deselectRow(at: indexPath, animated: true)
-            self.performSegue(withIdentifier: tripsSegue, sender: nil)
+        if let chatMessage = message as? Message {
+            switch chatMessage.type {
+            case .normal:
+                // do nothing
+                tableView.deselectRow(at: indexPath, animated: true)
+            case .button:
+                tableView.deselectRow(at: indexPath, animated: true)
+                self.performSegue(withIdentifier: tripsSegue, sender: nil)
+            }
         }
     }
     
@@ -242,26 +498,41 @@ extension MessageViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        switch message.type {
-        case .normal:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MessageCell.self),
-                                                           for: indexPath) as? MessageCell else {
-                                                            return UITableViewCell()
+        if let chatMessage = message as? Message {
+            switch chatMessage.type {
+            case .normal:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MessageCell.self),
+                                                               for: indexPath) as? MessageCell else {
+                                                                return UITableViewCell()
+                }
+                cell.avatarImageView.image = chatMessage.profileImage
+                cell.titleLabel.text = chatMessage.username
+                cell.detailLabel.text = chatMessage.text
+                // this makes sure the cell inverts if tableview is inverted
+                cell.transform = tableView.transform
+                return cell
+            case .button:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ButtonCell.self),
+                                                               for: indexPath) as? ButtonCell else  {
+                                                                return UITableViewCell()
+                }
+                cell.transform = tableView.transform
+                return cell
             }
-            let message = messages[indexPath.row]
-            cell.avatarImageView.image = message.profileImage
-            cell.titleLabel.text = message.username
-            cell.detailLabel.text = message.text
-            // this makes sure the cell inverts if tableview is inverted
-            cell.transform = tableView.transform
-            return cell
-        case .button:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ButtonCell.self),
-                                                           for: indexPath) as? ButtonCell else  {
-                                                            return UITableViewCell()
+        }
+        else if let flightViewModel = message as? FlightViewModel {
+            guard let tripCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TripCell.self),
+                                                               for: indexPath) as? TripCell else {
+                return UITableViewCell()
             }
-            cell.transform = tableView.transform
-            return cell
+            tripCell.transform = tableView.transform
+            tripCell.configure(with: flightViewModel)
+            
+            return tripCell
+        }
+        else {
+            assert(false, "Unidentified cell type in cellForRow")
+            return UITableViewCell()
         }
     }
     
@@ -281,10 +552,21 @@ extension MessageViewController {
                               type: .normal)
         self.insertMessage(message: message)
         super.didPressRightButton(sender)
-        APIUtility.shared.sendMessage(message: message.text,
-                                      withPreviousContext: self.previousContext,
-                                      success: self.messageResponseSuccessBlock(),
-                                      failure: nil)
+        if
+            let destination = self.destinationAirport,
+            let name = destination["name"] {
+            APIUtility.shared.sendMessage(message: message.text,
+                                          withPreviousContext: self.previousContext,
+                                          customContext: ["airport_name": name],
+                                          success: self.messageResponseSuccessBlock(),
+                                          failure: nil)
+        }
+        else {
+            APIUtility.shared.sendMessage(message: message.text,
+                                          withPreviousContext: self.previousContext,
+                                          success: self.messageResponseSuccessBlock(),
+                                          failure: nil)
+        }
     }
     
     func insertMessage(message: Message) {
@@ -334,11 +616,5 @@ extension MessageViewController: CLLocationManagerDelegate {
                                                        failure: nil)
         }
 
-    }
-}
-
-extension String {
-    func replaceOccurancesOfAirportCodeWithNames(for airports: [RuntimeEntity]) {
-        
     }
 }

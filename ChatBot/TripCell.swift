@@ -34,8 +34,9 @@ class TripCell: UITableViewCell {
     private func configurePrice(tripOption: TripOption) {
         //TODO: Get the right price
         // When do we have more than 1 pricing?
-        if let saleTotal = tripOption.pricing?[0].saleTotal {if saleTotal.hasPrefix("USD") {
-            self.priceLabel.text = "$" + (saleTotal as NSString).substring(from: 3)
+        if let saleTotal = tripOption.pricing?[0].saleTotal {
+            if saleTotal.hasPrefix("USD") {
+                self.priceLabel.text = "$" + (saleTotal as NSString).substring(from: 3)
             }
         }
     }
@@ -100,7 +101,7 @@ class TripCell: UITableViewCell {
         if stopCount > 0 {
             self.layoverLabel.isHidden = false
             // If there are more than one stop, then list them out underneath
-            self.layoverLabel.text = "\(stopCount) \(stopCount > 1 ? "stops\n" : "stop")" + " "
+            self.layoverLabel.text = "\(stopCount) \(stopCount > 1 ? "stops\n" : "stop" + " ")"
             for connectionDurationAndAirport in connectionDurationsAndAirports {
                 var layoverDetails = ""
                 if connectionDurationAndAirport.0 / 60 > 1 {

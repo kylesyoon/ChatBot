@@ -91,6 +91,7 @@ class APIUtility {
     
     func sendMessage(message: String,
                      withPreviousContext context: RuntimeContext?,
+                     customContext: [String: Any]? = nil,
                      success: @escaping MessageResponseSuccessCompletion,
                      failure: ((Error?) -> ())?) {
         guard let workspaceIdentifier = workspaceIdentifier else {
@@ -102,6 +103,15 @@ class APIUtility {
         
         if let context = context {
             json["context"] = context.toJSON()
+        }
+        
+        if
+            let customContext = customContext,
+            var jsonContext = json["context"] as? JSON {
+            customContext.forEach({ key, value in
+                jsonContext[key] = value
+            })
+            json["context"] = jsonContext
         }
         
         Alamofire
