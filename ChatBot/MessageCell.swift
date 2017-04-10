@@ -18,6 +18,7 @@ class MessageCell: UITableViewCell {
         super.awakeFromNib()
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2.0
         avatarImageView.layer.masksToBounds = true
+        titleLabel.textColor = UIColor.vok_primary
     }
     
 }

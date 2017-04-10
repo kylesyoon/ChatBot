@@ -14,10 +14,8 @@ import CoreLocation
 
 class MessageViewController: SLKTextViewController {
     let tripsSegue = "tripsSegue"
-    
     var messages = [Any]()
     var allAirports: [[String: String]]?
-    
     var previousContext: RuntimeContext?
     var searchResults: SearchResults?
     var locationManager = CLLocationManager()
@@ -26,16 +24,35 @@ class MessageViewController: SLKTextViewController {
         didSet {
             guard
                 let airport = originAirport,
-                let name = airport["name"] else { return }
-            let airportMessage = Message(username: "ChatBot",
+                let name = airport["name"] else {
+                    return
+            }
+            let airportMessage = Message(username: "Travel Agent",
                                          text: "Setting your departure airport to \(name).",
-                                         profileImage: #imageLiteral(resourceName: "bot"),
+                                         profileImage: #imageLiteral(resourceName: "vokal"),
                                          type: .normal)
             insertMessage(message: airportMessage)
+            if let navController = self.navigationController {
+                let view = UIView(frame: CGRect(x: 0,
+                                                y: navController.navigationBar.frame.origin.y + navController.navigationBar.frame.height,
+                                                width: self.view.frame.width,
+                                                height: 44.0))
+                view.backgroundColor = UIColor.vok_primary
+                let label = UILabel(frame: CGRect(x: 0,
+                                                  y: 0,
+                                                  width: self.view.frame.width,
+                                                  height: 44.0))
+                label.text = "Departing from \(name)"
+                label.textColor = UIColor.white
+                label.textAlignment = .center
+                view.addSubview(label)
+                self.view.addSubview(view)
+            }
         }
     }
     var destinationAirport: [String: String]?
     var filteredFlight: FlightViewModel?
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: style)
@@ -47,6 +64,8 @@ class MessageViewController: SLKTextViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.bringSubview(toFront: activityIndicator)
+        self.title = "Flights"
         tableView?.rowHeight = UITableViewAutomaticDimension
         tableView?.estimatedRowHeight = 134.0
         tableView?.separatorStyle = .none
@@ -88,9 +107,9 @@ class MessageViewController: SLKTextViewController {
             // pass context along
             self.previousContext = context
             // output what bot said
-            let startMessage = Message(username: "ChatBot",
+            let startMessage = Message(username: "Travel Agent",
                                        text: firstText,
-                                       profileImage: #imageLiteral(resourceName: "bot"),
+                                       profileImage: #imageLiteral(resourceName: "vokal"),
                                        type: .normal)
             insertMessage(message: startMessage)
             // find the airport that bot figured out
@@ -135,13 +154,14 @@ class MessageViewController: SLKTextViewController {
                     return
             }
             // Show dialog output
-            let message = Message(username: "ChatBot",
+            let message = Message(username: "Travel Agent",
                                   text: messageText,
-                                  profileImage: #imageLiteral(resourceName: "bot"),
+                                  profileImage: #imageLiteral(resourceName: "vokal"),
                                   type: .normal)
             self.insertMessage(message: message)
 
             if let intent = response.intents?.first, intent.intent == "filter" {
+                self.activityIndicator.stopAnimating()
                 self.filterIntentRecognized(for: response)
             }
             else if let intent = response.intents?.first, intent.intent == "modify" {
@@ -186,16 +206,18 @@ class MessageViewController: SLKTextViewController {
                                                              success: {
                                                                 [weak self]
                                                                 results in
+                                                                self?.activityIndicator.stopAnimating()
                                                                 self?.searchResults = results
                                                                 let message = Message(username: "",
                                                                                       text: "",
-                                                                                      profileImage: #imageLiteral(resourceName: "bot"),
+                                                                                      profileImage: #imageLiteral(resourceName: "vokal"),
                                                                                       type: .button)
                                                                 self?.insertMessage(message: message)
                         },
                                                              failure: nil)
                 }
                 else if let airport = airportEntity?.value {
+                    self.activityIndicator.stopAnimating()
                     // just got airport
                     guard let allAirports = self.allAirports else { return }
                     for airportDict in allAirports {
@@ -221,15 +243,20 @@ class MessageViewController: SLKTextViewController {
                                                                  success: {
                                                                     [weak self]
                                                                     results in
+                                                                    self?.activityIndicator.stopAnimating()
                                                                     self?.searchResults = results
                                                                     let message = Message(username: "",
                                                                                           text: "",
-                                                                                          profileImage: #imageLiteral(resourceName: "bot"),
+                                                                                          profileImage: #imageLiteral(resourceName: "vokal"),
                                                                                           type: .button)
                                                                     self?.insertMessage(message: message)
                             },
                                                                  failure: nil)
                     }
+                }
+                else {
+                    // unknown?
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }
@@ -353,10 +380,11 @@ class MessageViewController: SLKTextViewController {
                                                      success: {
                                                         [weak self]
                                                         results in
+                                                        self?.activityIndicator.stopAnimating()
                                                         self?.searchResults = results
                                                         let message = Message(username: "",
                                                                               text: "",
-                                                                              profileImage: #imageLiteral(resourceName: "bot"),
+                                                                              profileImage: #imageLiteral(resourceName: "vokal"),
                                                                               type: .button)
                                                         self?.insertMessage(message: message)
                 },
@@ -546,7 +574,7 @@ extension MessageViewController {
     override func didPressRightButton(_ sender: Any?) {
         // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
         self.textView.refreshFirstResponder()
-        let message = Message(username: "Me",
+        let message = Message(username: "Kyle",
                               text: self.textView.text,
                               profileImage: #imageLiteral(resourceName: "me"),
                               type: .normal)
@@ -555,6 +583,7 @@ extension MessageViewController {
         if
             let destination = self.destinationAirport,
             let name = destination["name"] {
+            self.activityIndicator.startAnimating()
             APIUtility.shared.sendMessage(message: message.text,
                                           withPreviousContext: self.previousContext,
                                           customContext: ["airport_name": name],
@@ -562,6 +591,7 @@ extension MessageViewController {
                                           failure: nil)
         }
         else {
+            self.activityIndicator.startAnimating()
             APIUtility.shared.sendMessage(message: message.text,
                                           withPreviousContext: self.previousContext,
                                           success: self.messageResponseSuccessBlock(),

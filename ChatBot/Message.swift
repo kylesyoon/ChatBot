@@ -14,10 +14,8 @@ enum MessageType {
 }
 
 struct Message {
-    
     let username: String
     let text: String
     let profileImage: UIImage
     let type: MessageType
-    
 }
